@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://bur4vws3j8icu"]
+[gd_scene load_steps=47 format=3 uid="uid://bur4vws3j8icu"]
 
 [ext_resource type="Script" uid="uid://ne2728ik3fe6" path="res://scripts/enemy_test.gd" id="1_gep6m"]
 [ext_resource type="Texture2D" uid="uid://bl1o1pnjcuj13" path="res://assets/enemy/Boss07_B.png" id="1_y7jog"]
@@ -194,7 +194,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"backup_chomp",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -235,7 +235,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"chill",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -258,7 +258,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"chomp",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -281,7 +281,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"damaged",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -304,7 +304,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"die",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -327,17 +327,22 @@ animations = [{
 }],
 "loop": true,
 "name": &"swipe",
-"speed": 5.0
+"speed": 10.0
 }]
 
-[node name="EnemyTest" type="Node2D" node_paths=PackedStringArray("EnemyCharacter")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gep6m"]
+size = Vector2(29, 35)
+
+[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("Collision", "Sprite")]
+collision_layer = 2
 script = ExtResource("1_gep6m")
-EnemyCharacter = NodePath("CharacterBody2D")
+Collision = NodePath("BodyCollisionShape2D")
+Sprite = NodePath("AnimatedSprite2D")
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_opp35")
-animation = &"swipe"
+animation = &"damaged"
 
-[node name="BodyCollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="BodyCollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -2.5)
+shape = SubResource("RectangleShape2D_gep6m")

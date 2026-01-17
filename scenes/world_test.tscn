@@ -1,8 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://ce0w7tddcjrxu"]
+[gd_scene load_steps=3 format=3 uid="uid://ce0w7tddcjrxu"]
 
-[ext_resource type="PackedScene" uid="uid://bur4vws3j8icu" path="res://scenes/enemy_test.tscn" id="1_7mhm3"]
+[ext_resource type="Script" uid="uid://cd7x1mrjp8l6n" path="res://scripts/world_test.gd" id="1_1moov"]
+[ext_resource type="PackedScene" uid="uid://curvsusg8weo6" path="res://scenes/landing_bar.tscn" id="2_puv4i"]
 
 [node name="WorldTest" type="Node2D"]
+script = ExtResource("1_1moov")
 
-[node name="EnemyTest" parent="." instance=ExtResource("1_7mhm3")]
-position = Vector2(237, 206)
+[node name="LandingBar1" parent="." instance=ExtResource("2_puv4i")]
+position = Vector2(163, 44)
+scale = Vector2(0.3, 1)
+
+[node name="LandingBar2" parent="." instance=ExtResource("2_puv4i")]
+position = Vector2(1067, 332)
+scale = Vector2(0.4, 1)
+
+[node name="LandingBar3" parent="." instance=ExtResource("2_puv4i")]
+position = Vector2(982, -3)
+scale = Vector2(0.3, 1)
+
+[node name="LandingBar4" parent="." instance=ExtResource("2_puv4i")]
+position = Vector2(164, 673)
+
+[node name="LandingBar" parent="." instance=ExtResource("2_puv4i")]
+position = Vector2(1361, 572)
+scale = Vector2(0.4, 1)
