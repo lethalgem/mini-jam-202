@@ -35,185 +35,36 @@ atlas = ExtResource("2_fdpfy")
 region = Rect2(160, 160, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ad58j"]
->>>>>>> main
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y7jog")
+"texture": SubResource("AtlasTexture_8ut53")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_opp35")
+"texture": SubResource("AtlasTexture_2ue4q")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ku53e")
+"texture": SubResource("AtlasTexture_4fwf8")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ko0qg")
+"texture": SubResource("AtlasTexture_dxymg")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4hlh2")
+"texture": SubResource("AtlasTexture_k3741")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1hxwi")
+"texture": SubResource("AtlasTexture_ged13")
 }],
 "loop": true,
-<<<<<<< HEAD
-"name": &"backup_chomp",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gep6m")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ainam")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mo2s0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1yn4p")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7wesy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_j3aj1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wdycq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_g07vx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7vixx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_joktd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5ctt7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_id6y6")
-}],
-"loop": true,
-"name": &"chill",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8k3t1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8ehap")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qqcyp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0w7up")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_onlqy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ackgg")
-}],
-"loop": true,
-"name": &"chomp",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kr2nb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_axxnc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gf5og")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tohtl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dak1q")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6vid2")
-}],
-"loop": true,
-"name": &"damaged",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_q6cym")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ps6vs")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_88cbo")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ac7ht")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5l2yp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ty1jc")
-}],
-"loop": true,
-"name": &"die",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_t6et7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_outce")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_g8fn6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ewtm4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7yra5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hgrex")
-}],
-"loop": true,
-"name": &"swipe",
-"speed": 5.0
-}]
-
-[node name="EnemyTest" type="Node2D"]
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-=======
 "name": &"default",
 "speed": 5.0
 }]
 
 [node name="PlayerTest" type="Node2D"]
->>>>>>> main
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
-sprite_frames = SubResource("SpriteFrames_opp35")
-animation = &"chomp"
-frame_progress = 0.13803884
+[node name="Ground" type="StaticBody2D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_fdpfy")
 
-<<<<<<< HEAD
-[node name="BodyCollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-=======
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
 position = Vector2(524.5, 593.5)
 shape = SubResource("RectangleShape2D_6p80c")
