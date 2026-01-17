@@ -1,0 +1,88 @@
+[gd_scene load_steps=14 format=3 uid="uid://bpsnf0081x4a4"]
+
+[ext_resource type="Script" uid="uid://63lkgjw2ma47" path="res://scripts/death_bubble_rigid_body_2d.gd" id="1_kf7ij"]
+[ext_resource type="Texture2D" uid="uid://81fluxf3gks8" path="res://assets/items/RA_Item_Icons.png" id="2_61v7s"]
+[ext_resource type="Script" uid="uid://cnlltviq1cy31" path="res://scripts/death_bubble_animated_sprite_2d.gd" id="3_bxmdq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_upai5"]
+atlas = ExtResource("2_61v7s")
+region = Rect2(320, 304, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7nquk"]
+atlas = ExtResource("2_61v7s")
+region = Rect2(384, 288, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wuwei"]
+atlas = ExtResource("2_61v7s")
+region = Rect2(336, 304, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cbabv"]
+atlas = ExtResource("2_61v7s")
+region = Rect2(400, 288, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p77al"]
+atlas = ExtResource("2_61v7s")
+region = Rect2(352, 304, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mma30"]
+atlas = ExtResource("2_61v7s")
+region = Rect2(416, 288, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jchcb"]
+atlas = ExtResource("2_61v7s")
+region = Rect2(368, 304, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nj84y"]
+atlas = ExtResource("2_61v7s")
+region = Rect2(432, 288, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4j1cw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_upai5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7nquk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wuwei")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cbabv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p77al")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mma30")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jchcb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nj84y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4fwf8"]
+
+[node name="DeathBubbleRigidBody2D" type="RigidBody2D" node_paths=PackedStringArray("collision_shape", "animated_sprite")]
+collision_layer = 0
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_kf7ij")
+collision_shape = NodePath("CollisionShape2D")
+animated_sprite = NodePath("DeathBubbleAnimatedSprite2D")
+
+[node name="DeathBubbleAnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_4j1cw")
+frame = 2
+frame_progress = 0.19674048
+script = ExtResource("3_bxmdq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_4fwf8")
