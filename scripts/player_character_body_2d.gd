@@ -29,7 +29,7 @@ func start_teleport(location: Vector2):
 func attack():
 	animated_sprite_2D.play("slash", attack_speed)
 	await animated_sprite_2D.animation_finished
-	idle()
+	die()
 
 func idle():
 	animated_sprite_2D.play("idle", idle_speed)
@@ -41,5 +41,6 @@ func die():
 	var death_bubble_controller: DeathBubbleController = death_bubble_controller_scene.instantiate()
 	add_sibling(death_bubble_controller)
 	death_bubble_controller.global_position = global_position
+	death_bubble_controller.scale = scale
 	death_bubble_controller.start()
 	queue_free()

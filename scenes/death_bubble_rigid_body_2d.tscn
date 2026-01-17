@@ -70,11 +70,13 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4fwf8"]
 
-[node name="DeathBubbleRigidBody2D" type="RigidBody2D"]
+[node name="DeathBubbleRigidBody2D" type="RigidBody2D" node_paths=PackedStringArray("collision_shape", "animated_sprite")]
 collision_layer = 0
 collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_kf7ij")
+collision_shape = NodePath("CollisionShape2D")
+animated_sprite = NodePath("DeathBubbleAnimatedSprite2D")
 
 [node name="DeathBubbleAnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_4j1cw")
