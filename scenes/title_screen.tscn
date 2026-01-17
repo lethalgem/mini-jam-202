@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bwla1jk0c6r4k"]
+[gd_scene load_steps=3 format=3 uid="uid://bwla1jk0c6r4k"]
 
-[ext_resource type="PackedScene" uid="uid://cn13r4w8018n6" path="res://scenes/title.tscn" id="1_fgkus"]
+[ext_resource type="PackedScene" uid="uid://d0gvbh7yu61tg" path="res://scenes/title.tscn" id="1_fgkus"]
+[ext_resource type="AudioStream" uid="uid://dnlv8wmkr6cxx" path="res://assets/music/tekno-kick-loop-176-bpm-292894.mp3" id="2_sa3yf"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -23,3 +24,9 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="TeknoKickLoop176Bpm292894" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_sa3yf")
+autoplay = true
+bus = &"Music"
+parameters/looping = false

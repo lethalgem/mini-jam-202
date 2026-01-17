@@ -7,7 +7,7 @@ extends Control
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	play_floating_animation()
-
+	
 	
 func play_floating_animation() -> void: 
 	var tween := create_tween()
@@ -18,29 +18,17 @@ func play_floating_animation() -> void:
 	tween.tween_property(title_label, "position", -1.0*position_offest, duration)
 	
 	tween.set_loops()
-
-func button_animation()-> void:
-	var hover_color = button.get_theme_color("font_hover_color")
-	var pressed_color = button.get_theme_color("font_focus_color")
-	var duration := 0.2
-	var tween := create_tween()
-	
-	tween.tween_property(button,"theme_override_colors/font_focus_color",pressed_color,duration).set_trans(Tween.TRANS_BOUNCE)
-	tween.tween_property(button,"theme_override_colors/font_focus_color",hover_color,duration).set_trans(Tween.TRANS_BOUNCE)
-	
-	tween.set_loops()
-
-
+#
 func _on_start_button_pressed() -> void:
-	start_pressed_animation()
+	print("button clicked")
 	button_sound.play()
-
-func start_pressed_animation() -> void:
-	var tween := create_tween()
-	var hover_color = start_button.get_theme_color("font_hover_color")
-	var pressed_color = start_button.get_theme_color('font_focus_color')
-	var duration := 0.20
-	
-	tween.tween_property(start_button,"theme_override_colors/font_focus_color",pressed_color,duration).set_trans(Tween.TRANS_BOUNCE)
-	tween.tween_property(start_button,"theme_override_colors/font_focus_color",hover_color,duration).set_trans(Tween.TRANS_BOUNCE)
-	tween.set_loops()
+##
+#func start_pressed_animation() -> void:
+	#print("Start button flashing works")
+	#var tween := create_tween()
+	#var hover_color = start_button.get_theme_color("font_hover_color")
+	#var pressed_color = start_button.get_theme_color('font_focus_color')
+	#var duration := 0.20
+	#tween.tween_property(start_button,"theme_override_colors/font_focus_color",pressed_color,duration).set_trans(Tween.TRANS_BOUNCE)
+	#tween.tween_property(start_button,"theme_override_colors/font_focus_color",hover_color,duration).set_trans(Tween.TRANS_BOUNCE)
+	#tween.set_loops()

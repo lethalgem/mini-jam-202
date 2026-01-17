@@ -1,14 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://cn13r4w8018n6"]
+[gd_scene load_steps=5 format=3 uid="uid://d0gvbh7yu61tg"]
 
 [ext_resource type="LabelSettings" uid="uid://c2xfxfkbrikkw" path="res://themes/titlelabelsettings.tres" id="1_cpp3m"]
-[ext_resource type="Script" uid="uid://c6o313ejnl6u6" path="res://scripts/title.gd" id="1_p6dhs"]
+[ext_resource type="Script" uid="uid://k0crdr3mxro4" path="res://scripts/title.gd" id="1_pyl7j"]
 [ext_resource type="FontFile" uid="uid://dr12mxnc3lejr" path="res://assets/fonts/dungeonmode/font/dungeon-mode.ttf" id="2_ma3cw"]
 [ext_resource type="AudioStream" uid="uid://c7ecwpu2562j2" path="res://assets/sfx/arcade-ui-14-229514.mp3" id="4_pyl7j"]
 
 [node name="Title" type="Control" node_paths=PackedStringArray("title_label", "start_button", "button_sound")]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_p6dhs")
+script = ExtResource("1_pyl7j")
 title_label = NodePath("VBoxContainer/GameTitle")
 start_button = NodePath("VBoxContainer/HBoxContainer/StartButton")
 button_sound = NodePath("ArcadeUi14229514")
@@ -56,5 +56,6 @@ flat = true
 
 [node name="ArcadeUi14229514" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_pyl7j")
+bus = &"SFX"
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
