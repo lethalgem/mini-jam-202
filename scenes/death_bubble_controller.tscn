@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxxcud3o7grf1"]
+
+[ext_resource type="Script" uid="uid://duhejx7lcviev" path="res://scripts/death_bubble_controller.gd" id="1_eacsl"]
+
+[node name="DeathBubbleController" type="Node2D"]
+script = ExtResource("1_eacsl")
