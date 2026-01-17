@@ -1,6 +1,7 @@
-[gd_scene load_steps=70 format=3 uid="uid://cwy5ad6mwh2mx"]
+[gd_scene load_steps=71 format=3 uid="uid://cwy5ad6mwh2mx"]
 
 [ext_resource type="Texture2D" uid="uid://tb7paibar2se" path="res://assets/characters/Hero_26.png" id="1_a8v3n"]
+[ext_resource type="Script" uid="uid://cdhlrynx1jcd1" path="res://scripts/player_character_body_2d.gd" id="1_fdpfy"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fdpfy"]
 
@@ -219,14 +220,6 @@ region = Rect2(128, 96, 32, 32)
 atlas = ExtResource("1_a8v3n")
 region = Rect2(160, 96, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_f6mep"]
-atlas = ExtResource("1_a8v3n")
-region = Rect2(96, 256, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_k8vky"]
-atlas = ExtResource("1_a8v3n")
-region = Rect2(32, 256, 32, 32)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_fsc66"]
 atlas = ExtResource("1_a8v3n")
 region = Rect2(0, 256, 32, 32)
@@ -238,6 +231,14 @@ region = Rect2(64, 256, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_vqsiv"]
 atlas = ExtResource("1_a8v3n")
 region = Rect2(128, 256, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f6mep"]
+atlas = ExtResource("1_a8v3n")
+region = Rect2(96, 256, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k8vky"]
+atlas = ExtResource("1_a8v3n")
+region = Rect2(32, 256, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pgy6t"]
 atlas = ExtResource("1_a8v3n")
@@ -476,12 +477,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_f6mep")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_k8vky")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_fsc66")
 }, {
 "duration": 1.0,
@@ -490,8 +485,22 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vqsiv")
 }],
+"loop": true,
+"name": &"teleport_end",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f6mep")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k8vky")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fsc66")
+}],
 "loop": false,
-"name": &"teleport",
+"name": &"teleport_start",
 "speed": 7.0
 }, {
 "frames": [{
@@ -530,11 +539,15 @@ physics_material_override = SubResource("PhysicsMaterial_fdpfy")
 position = Vector2(524.5, 593.5)
 shape = SubResource("RectangleShape2D_6p80c")
 
-[node name="PlayerCharacterBody2D" type="CharacterBody2D" parent="."]
+[node name="PlayerCharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("animated_sprite_2D")]
+position = Vector2(527, 477)
+motion_mode = 1
+script = ExtResource("1_fdpfy")
+animated_sprite_2D = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PlayerCharacterBody2D"]
 sprite_frames = SubResource("SpriteFrames_jieji")
-animation = &"teleport"
+animation = &"teleport_end"
 
 [node name="BodyCollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody2D"]
 position = Vector2(0, 6.5)
