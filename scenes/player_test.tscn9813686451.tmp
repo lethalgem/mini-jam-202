@@ -1,7 +1,11 @@
-[gd_scene load_steps=71 format=3 uid="uid://cwy5ad6mwh2mx"]
+[gd_scene load_steps=85 format=3 uid="uid://cwy5ad6mwh2mx"]
 
 [ext_resource type="Texture2D" uid="uid://tb7paibar2se" path="res://assets/characters/Hero_26.png" id="1_a8v3n"]
 [ext_resource type="Script" uid="uid://cdhlrynx1jcd1" path="res://scripts/player_character_body_2d.gd" id="1_fdpfy"]
+[ext_resource type="Script" uid="uid://duhejx7lcviev" path="res://scripts/death_bubble_controller.gd" id="3_2ue4q"]
+[ext_resource type="Texture2D" uid="uid://81fluxf3gks8" path="res://assets/items/RA_Item_Icons.png" id="3_8ut53"]
+[ext_resource type="Script" uid="uid://cnlltviq1cy31" path="res://scripts/death_bubble_animated_sprite_2d.gd" id="4_2ue4q"]
+[ext_resource type="Script" uid="uid://63lkgjw2ma47" path="res://scripts/death_bubble_rigid_body_2d.gd" id="4_4fwf8"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fdpfy"]
 
@@ -530,6 +534,72 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_upai5"]
 size = Vector2(20, 19)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_upai5"]
+atlas = ExtResource("3_8ut53")
+region = Rect2(320, 304, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7nquk"]
+atlas = ExtResource("3_8ut53")
+region = Rect2(384, 288, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wuwei"]
+atlas = ExtResource("3_8ut53")
+region = Rect2(336, 304, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cbabv"]
+atlas = ExtResource("3_8ut53")
+region = Rect2(400, 288, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p77al"]
+atlas = ExtResource("3_8ut53")
+region = Rect2(352, 304, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mma30"]
+atlas = ExtResource("3_8ut53")
+region = Rect2(416, 288, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jchcb"]
+atlas = ExtResource("3_8ut53")
+region = Rect2(368, 304, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nj84y"]
+atlas = ExtResource("3_8ut53")
+region = Rect2(432, 288, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4j1cw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_upai5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7nquk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wuwei")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cbabv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p77al")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mma30")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jchcb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nj84y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4fwf8"]
+
 [node name="PlayerTest" type="Node2D"]
 
 [node name="Ground" type="StaticBody2D" parent="."]
@@ -540,6 +610,7 @@ position = Vector2(524.5, 593.5)
 shape = SubResource("RectangleShape2D_6p80c")
 
 [node name="PlayerCharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("animated_sprite_2D")]
+position = Vector2(527, 477)
 motion_mode = 1
 script = ExtResource("1_fdpfy")
 animated_sprite_2D = NodePath("AnimatedSprite2D")
@@ -551,3 +622,21 @@ animation = &"teleport_start"
 [node name="BodyCollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody2D"]
 position = Vector2(0, 6.5)
 shape = SubResource("RectangleShape2D_upai5")
+
+[node name="DeathBubbleController" type="Node2D" parent="."]
+script = ExtResource("3_2ue4q")
+
+[node name="DeathBubbleRigidBody2D" type="RigidBody2D" parent="DeathBubbleController"]
+collision_layer = 0
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("4_4fwf8")
+
+[node name="DeathBubbleAnimatedSprite2D" type="AnimatedSprite2D" parent="DeathBubbleController/DeathBubbleRigidBody2D"]
+sprite_frames = SubResource("SpriteFrames_4j1cw")
+frame = 2
+frame_progress = 0.19674048
+script = ExtResource("4_2ue4q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathBubbleController/DeathBubbleRigidBody2D"]
+shape = SubResource("CircleShape2D_4fwf8")
