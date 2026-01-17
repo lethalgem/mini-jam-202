@@ -1,5 +1,6 @@
-[gd_scene load_steps=45 format=3 uid="uid://bur4vws3j8icu"]
+[gd_scene load_steps=46 format=3 uid="uid://bur4vws3j8icu"]
 
+[ext_resource type="Script" uid="uid://ne2728ik3fe6" path="res://scripts/enemy_test.gd" id="1_gep6m"]
 [ext_resource type="Texture2D" uid="uid://bl1o1pnjcuj13" path="res://assets/enemy/Boss07_B.png" id="1_y7jog"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y7jog"]
@@ -329,13 +330,14 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="EnemyTest" type="Node2D"]
+[node name="EnemyTest" type="Node2D" node_paths=PackedStringArray("EnemyCharacter")]
+script = ExtResource("1_gep6m")
+EnemyCharacter = NodePath("CharacterBody2D")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
 sprite_frames = SubResource("SpriteFrames_opp35")
-animation = &"chomp"
-frame_progress = 0.24893016
+animation = &"swipe"
 
 [node name="BodyCollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
