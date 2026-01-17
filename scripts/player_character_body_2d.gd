@@ -14,10 +14,6 @@ var death_bubble_controller_scene := preload("res://scenes/death_bubble_controll
 func _ready():
 	idle()
 
-#func _input(event):
-	#if event is InputEventMouseButton and event.pressed:
-		#if event.button_index == MOUSE_BUTTON_LEFT:
-			#start_teleport(event.position)
 
 func start_teleport(location: Vector2):
 	animated_sprite_2D.play("teleport_start", teleport_speed)
