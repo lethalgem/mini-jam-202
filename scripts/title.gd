@@ -19,6 +19,17 @@ func play_floating_animation() -> void:
 	
 	tween.set_loops()
 
+func button_animation()-> void:
+	var hover_color = button.get_theme_color("font_hover_color")
+	var pressed_color = button.get_theme_color("font_focus_color")
+	var duration := 0.2
+	var tween := create_tween()
+	
+	tween.tween_property(button,"theme_override_colors/font_focus_color",pressed_color,duration).set_trans(Tween.TRANS_BOUNCE)
+	tween.tween_property(button,"theme_override_colors/font_focus_color",hover_color,duration).set_trans(Tween.TRANS_BOUNCE)
+	
+	tween.set_loops()
+
 
 func _on_start_button_pressed() -> void:
 	start_pressed_animation()
