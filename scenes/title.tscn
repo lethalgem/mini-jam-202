@@ -40,11 +40,15 @@ size_flags_vertical = 4
 [node name="StartButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9764706, 0.5372549, 0.37254903, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(0.9490196, 0.827451, 0.08235294, 1)
 theme_override_colors/font_hover_color = Color(0.16862746, 0.8901961, 0.90588236, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.5019608)
 theme_override_colors/font_outline_color = Color(0.09019608, 0, 0.6784314, 0.75686276)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("2_ma3cw")
 theme_override_font_sizes/font_size = 35
 text = "Start"
 flat = true
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
