@@ -4,7 +4,7 @@
 
 [resource]
 font = ExtResource("1_hle07")
-font_size = 120
+font_size = 160
 font_color = Color(0.90588236, 0.1764706, 0.5882353, 0.9137255)
 shadow_size = 23
 shadow_color = Color(0.38431373, 0.0627451, 0.64705884, 0.7254902)
