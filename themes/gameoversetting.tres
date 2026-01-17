@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://crpw4hmk1d3a0"]
+
+[ext_resource type="FontFile" uid="uid://dr12mxnc3lejr" path="res://assets/fonts/dungeonmode/font/dungeon-mode.ttf" id="1_cru0r"]
+
+[resource]
+font = ExtResource("1_cru0r")
+font_size = 160
+font_color = Color(0, 0, 0, 0.9137255)
+shadow_size = 23
+shadow_color = Color(0.6989554, 0.47331256, 0.9907562, 0.8117647)
