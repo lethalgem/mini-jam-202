@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dv5jvexj7xk23"]
+
+[ext_resource type="AudioStream" uid="uid://btvhk5pq1iph8" path="res://assets/sfx/sword-air-swing-2-437695.mp3" id="1_01p7l"]
+[ext_resource type="Script" uid="uid://dcvn2vnw55chk" path="res://scripts/sound_player_2d.gd" id="2_jb0na"]
+
+[node name="SoundPlayer2D" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_01p7l")
+bus = &"SFX"
+script = ExtResource("2_jb0na")
