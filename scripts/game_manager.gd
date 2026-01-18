@@ -38,3 +38,7 @@ func _on_option_menu_back_button_pressed() -> void:
 	print("back button pressed")
 	option_menu.visible = false
 	main_menu.visible = true
+
+
+func _on_game_over_play_again_pressed() -> void:
+	pass # Replace with function body.
