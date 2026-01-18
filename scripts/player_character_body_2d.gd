@@ -8,16 +8,19 @@ class_name PlayerCharacterBody2D extends CharacterBody2D
 @export var death_speed: float = 1.0
 @export var attack_cooldown: float = 1.0
 @export var speed := 300.0
+@export var gravity := 800.0
 
 var death_bubble_controller_scene := preload("res://scenes/death_bubble_controller.tscn")
+var power_up_blast := preload("res://scenes/power_up_blast.tscn")
+
+var falling := false
 
 func _ready():
 	idle()
 
-#func _input(event):
-	#if event is InputEventMouseButton and event.pressed:
-		#if event.button_index == MOUSE_BUTTON_LEFT:
-			#start_teleport(event.position)
+func _input(event):
+	if event.is_action_pressed("radial_blast"):
+		powerUp()
 
 func start_teleport(location: Vector2):
 	animated_sprite_2D.play("teleport_start", teleport_speed)
@@ -33,6 +36,17 @@ func attack():
 	#die()
 	idle()
 
+func powerUp():
+	
+	print(global_position)
+	
+	var blast = power_up_blast.instantiate()
+	blast.global_position = global_position
+	get_parent().add_child(blast)
+	
+	scale *= 1.25
+	
+	
 func idle():
 	animated_sprite_2D.play("idle", idle_speed)
 
@@ -58,12 +72,23 @@ func _physics_process(delta):
 		direction += 1
 		animated_sprite_2D.flip_h = false
 	
-	print(direction)
-
 	velocity.x = direction * speed
-	velocity.y = 0 
+	
+	if falling:
+		velocity.y += gravity * delta
+	else:
+		velocity.y = 0
+	
 
 	move_and_slide()
+	
+	if get_slide_collision_count() == 0:
+		falling = true
+	else:
+		for i in range(get_slide_collision_count()):
+			var c = get_slide_collision(i)
+			if c.get_normal().x == 0 and c.get_normal().y == -1:
+				falling = false
 	
 	if Input.is_action_just_pressed("attack"):
 		attack()

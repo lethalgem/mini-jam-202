@@ -14,9 +14,6 @@ func _ready() -> void:
 	
 	randomize()
 	pick_new_direction()
-	
-	
-
 
 
 
