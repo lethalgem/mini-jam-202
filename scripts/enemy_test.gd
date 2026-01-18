@@ -2,6 +2,7 @@ class_name Enemy extends CharacterBody2D
 
 @export var Collision:CollisionShape2D
 @export var Sprite:AnimatedSprite2D
+@export var attack_collision_shape_2D: CollisionShape2D
 @export var speed: float = 100.0
 @export var gravity := 800.0
 @export var falling := true
@@ -70,9 +71,13 @@ func pick_new_direction():
 			if randomValue < .5:
 				direction = left
 				Sprite.flip_h = true
+				if attack_collision_shape_2D.position.x > 0:
+					attack_collision_shape_2D.position.x = -attack_collision_shape_2D.position.x
 			else:
 				direction = right
 				Sprite.flip_h = false
+				if attack_collision_shape_2D.position.x < 0:
+					attack_collision_shape_2D.position.x = -attack_collision_shape_2D.position.x
 		
 	else:
 		if randomValue < .33:
@@ -80,6 +85,16 @@ func pick_new_direction():
 		elif randomValue < .67:
 			direction = left
 			Sprite.flip_h = true
+			if attack_collision_shape_2D.position.x > 0:
+				attack_collision_shape_2D.position.x = -attack_collision_shape_2D.position.x
 		else:
 			direction = right
 			Sprite.flip_h = false
+			if attack_collision_shape_2D.position.x < 0:
+				attack_collision_shape_2D.position.x = -attack_collision_shape_2D.position.x
+
+
+func _on_attacking_area_2d_body_entered(body: Node2D) -> void:
+	print(body)
+	if body.has_method("take_damage"):
+		body.take_damage()

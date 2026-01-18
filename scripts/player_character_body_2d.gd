@@ -8,8 +8,10 @@ class_name PlayerCharacterBody2D extends CharacterBody2D
 @export var idle_speed: float = 1.0
 @export var death_speed: float = 1.0
 @export var speed := 300.0
+@export var health := 10
 
 var death_bubble_controller_scene := preload("res://scenes/death_bubble_controller.tscn")
+var taking_damage := false
 
 func _ready():
 	idle()
@@ -59,15 +61,26 @@ func _physics_process(_delta):
 	velocity.x = direction * speed
 	velocity.y = 0 
 
-	if velocity.x != 0 and not attack_area_2D.monitoring:
+	if velocity.x != 0 and not attack_area_2D.monitoring and not taking_damage:
 		walk()
-	elif velocity.x == 0 and not attack_area_2D.monitoring:
+	elif velocity.x == 0 and not attack_area_2D.monitoring and not taking_damage:
 		idle()
 
 	move_and_slide()
 	
 	if Input.is_action_just_pressed("attack"):
 		attack()
+
+
+func take_damage():
+	if health >= 1:
+		health -= 1
+		animated_sprite_2D.play("damage")
+		animated_sprite_2D.frame = 0
+		taking_damage = true
+		# TODO: deal with animation ending, not having a state machine is f-ing us
+	else:
+		die()
 
 
 func _on_attack_area_2d_body_entered(body: Node2D) -> void:
