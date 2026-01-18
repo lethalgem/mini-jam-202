@@ -93,8 +93,8 @@ func update_animation():
 		State.DAMAGED:
 			pass # damage animation already playing
 		State.WALK:
-			if Sprite.animation != "walk":
-				Sprite.play("walk")
+			if Sprite.animation != "chill":
+				Sprite.play("chill")
 		State.IDLE:
 			if Sprite.animation != "chill":
 				Sprite.play("chill")
