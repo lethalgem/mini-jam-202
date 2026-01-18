@@ -4,6 +4,7 @@ class_name TitleScreen extends Control
 @export var gen_button: Button
 @export var button_sound : AudioStreamPlayer
 
+signal start_but_pressed
 signal option_but_pressed
 signal play_again_pressed
 
@@ -23,6 +24,7 @@ func play_floating_animation() -> void:
 	tween.set_loops()
 
 func _on_start_button_pressed() -> void:
+	start_but_pressed.emit()
 	button_sound.play()
 
 func button_animation(button:Button) -> void:

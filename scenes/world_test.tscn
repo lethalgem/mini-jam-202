@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cd7x1mrjp8l6n" path="res://scripts/world_test.gd" id="1_1moov"]
 [ext_resource type="Texture2D" uid="uid://dg11xy0rj80t" path="res://assets/tiles/Tileset.png" id="2_puv4i"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1moov"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_puv4i"]
 texture = ExtResource("2_puv4i")
 4:0/0 = 0
 4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -465,7 +465,7 @@ texture = ExtResource("2_puv4i")
 
 [sub_resource type="TileSet" id="TileSet_63fu1"]
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_1moov")
+sources/0 = SubResource("TileSetAtlasSource_puv4i")
 
 [node name="WorldTest" type="Node2D"]
 script = ExtResource("1_1moov")

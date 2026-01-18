@@ -1,4 +1,4 @@
-extends Node2D
+class_name WorldTest extends Node2D
 
 @onready var enemy_scene = preload("res://scenes/enemy_test.tscn")
 var spawn_points = [] # Array to hold possible spawn positions (Vector2)
@@ -29,7 +29,6 @@ func _on_spawn_timeout():
 	enemy.global_position = Vector2(spawn_x, spawn_y)
 	enemy.speed = randf_range(65, 350)
 	
-	#var scale_value = randf_range(0.7, 1.3)
 	var scale_value = randf_normal(1.3, 1)
 	while scale_value > 4:
 		scale_value = randf_normal(1.3, 1)
@@ -46,3 +45,15 @@ func randf_normal(mean := 1.0, std_dev := 0.15) -> float:
 	var u2 = randf()
 	var z0 = sqrt(-2.0 * log(u1)) * cos(TAU * u2)
 	return mean + z0 * std_dev
+
+func clear_and_disable():
+	spawn_timer.stop()
+	for child in get_parent().get_children():
+		if child is Enemy:
+			child.queue_free()
+
+func reenable():
+	spawn_timer.start()
+	
+	
+	
