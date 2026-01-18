@@ -13,6 +13,14 @@ class_name Enemy extends CharacterBody2D
 const ATTACK_START_FRAME := 3
 const ATTACK_END_FRAME := 5
 
+enum State {
+	IDLE,
+	WALK,
+	ATTACK,
+	DAMAGED,
+	DEAD
+}
+
 var stay := Vector2(0, 0)
 var left := Vector2(-1, 0)
 var right := Vector2(1, 0)
@@ -22,15 +30,6 @@ var timePassed := 0.0
 var attack_cooldown := 1.0
 var attack_timer := 0.0
 var has_hit := false
-
-enum State {
-	IDLE,
-	WALK,
-	ATTACK,
-	DAMAGED,
-	DEAD
-}
-
 var state: State = State.IDLE
 
 func _ready() -> void:
@@ -57,7 +56,6 @@ func _physics_process(delta):
 	if state in [State.ATTACK, State.DAMAGED, State.DEAD]:
 		move_and_slide()
 		return
-
 
 	if should_move:
 		velocity.x = direction.x * speed

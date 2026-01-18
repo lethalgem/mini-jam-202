@@ -10,28 +10,21 @@ class_name PlayerCharacterBody2D extends CharacterBody2D
 @export var speed := 300.0
 @export var health := 10
 
+enum State {
+	IDLE,
+	WALK,
+	ATTACK,
+	DAMAGED,
+	DEAD
+}
+
+var state: State = State.IDLE
 var death_bubble_controller_scene := preload("res://scenes/death_bubble_controller.tscn")
 var taking_damage := false
 
 func _ready():
-	idle()
-
-func attack():
-	animated_sprite_2D.play("slash", attack_speed)
-	attack_area_2D.monitoring = true
-	attack_area_2D.visible = true
-	await animated_sprite_2D.animation_finished
 	attack_area_2D.monitoring = false
 	attack_area_2D.visible = false
-	idle()
-
-func idle():
-	attack_area_2D.monitoring = false
-	animated_sprite_2D.play("idle", idle_speed)
-
-func walk():
-	attack_area_2D.monitoring = false
-	animated_sprite_2D.play("walk", idle_speed)
 
 func die():
 	attack_area_2D.monitoring = false
@@ -46,46 +39,94 @@ func die():
 	queue_free()
 
 
-func _physics_process(_delta):
+func _physics_process(delta):
+	if state in [State.ATTACK, State.DAMAGED, State.DEAD]:
+		return
+	
 	var direction := 0
-
-	if Input.is_action_pressed("ui_left"):
-		direction -= 1
-		animated_sprite_2D.flip_h = true
-		if attack_collision_shape_2D.position.x > 0:
-			attack_collision_shape_2D.position.x = -attack_collision_shape_2D.position.x
-	if Input.is_action_pressed("ui_right"):
-		direction += 1
-		animated_sprite_2D.flip_h = false
-		if attack_collision_shape_2D.position.x < 0:
-			attack_collision_shape_2D.position.x = -attack_collision_shape_2D.position.x
-
+	
+	if state in [State.WALK, State.IDLE]:
+		if Input.is_action_pressed("ui_left"):
+			direction -= 1
+			animated_sprite_2D.flip_h = true
+			if attack_collision_shape_2D.position.x > 0:
+				attack_collision_shape_2D.position.x = -attack_collision_shape_2D.position.x
+		elif Input.is_action_pressed("ui_right"):
+			direction += 1
+			animated_sprite_2D.flip_h = false
+			if attack_collision_shape_2D.position.x < 0:
+				attack_collision_shape_2D.position.x = -attack_collision_shape_2D.position.x
+		
+		if velocity.x == 0:
+			state = State.IDLE
+		else:
+			state = State.WALK
+		
+		if Input.is_action_just_pressed("attack"):
+			start_attack()
+	
 	velocity.x = direction * speed
-	velocity.y = 0 
-
-	if velocity.x != 0 and not attack_area_2D.monitoring and not taking_damage:
-		walk()
-	elif velocity.x == 0 and not attack_area_2D.monitoring and not taking_damage:
-		idle()
-
+	velocity.y += 800 * delta # keep the character grounded
+	
 	move_and_slide()
 	
-	if Input.is_action_just_pressed("attack"):
-		attack()
+	update_animation()
+
+func update_animation():
+	if state == State.DEAD:
+		return
+
+	match state:
+		State.ATTACK:
+			pass # attack animation already playing
+		State.DAMAGED:
+			pass # damage animation already playing
+		State.WALK:
+			if animated_sprite_2D.animation != "walk":
+				animated_sprite_2D.play("walk", idle_speed)
+		State.IDLE:
+			if animated_sprite_2D.animation != "idle":
+				animated_sprite_2D.play("idle", idle_speed)
+
+func start_attack():
+	if state in [State.DEAD, State.DAMAGED]:
+		return
+
+	state = State.ATTACK
+	animated_sprite_2D.play("slash", attack_speed)
+	attack_area_2D.monitoring = true
+	attack_area_2D.visible = true
 
 
 func take_damage():
-	if health >= 1:
-		health -= 1
-		animated_sprite_2D.play("damage")
-		animated_sprite_2D.frame = 0
-		taking_damage = true
-		# TODO: deal with animation ending, not having a state machine is f-ing us
-	else:
+	if state == State.DEAD:
+		return
+
+	attack_area_2D.monitoring = false
+	attack_area_2D.visible = false
+
+	health -= 1
+
+	if health <= 0:
+		state = State.DEAD
 		die()
+		return
+
+	state = State.DAMAGED
+	animated_sprite_2D.play("damage")
+	animated_sprite_2D.frame = 0
+
+	await animated_sprite_2D.animation_finished
+	state = State.IDLE
 
 
 func _on_attack_area_2d_body_entered(body: Node2D) -> void:
 	if body.has_method("take_damage") and body is Enemy:
-		print("yeet")
 		body.take_damage()
+
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	if animated_sprite_2D.animation == "slash":
+		attack_area_2D.monitoring = false
+		attack_area_2D.visible = false
+		state = State.IDLE
