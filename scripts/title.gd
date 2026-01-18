@@ -4,6 +4,7 @@ class_name TitleScreen extends Control
 @export var start_button: Button
 @export var button_sound : AudioStreamPlayer
 
+signal start_but_pressed
 signal option_but_pressed
 
 # Called when the node enters the scene tree for the first time.
@@ -22,6 +23,7 @@ func play_floating_animation() -> void:
 	tween.set_loops()
 
 func _on_start_button_pressed() -> void:
+	start_but_pressed.emit()
 	button_sound.play()
 
 func start_pressed_animation() -> void:

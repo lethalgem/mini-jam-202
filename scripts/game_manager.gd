@@ -1,10 +1,11 @@
 class_name GameManager extends Node2D
 
-@export var counter_ui : CountersUI
-
+@export var counter_ui: CountersUI
+@export var game_mode: GameMode
 
 @onready var main_menu = $CanvasLayer2
 @onready var option_menu = $CanvasLayer4
+@onready var world_test := $CanvasLayer2/WorldTest as WorldTest
 
 var time_since_time_update: float = 0
 var total_time_survived_sec: float = 0
@@ -38,3 +39,10 @@ func _on_option_menu_back_button_pressed() -> void:
 	print("back button pressed")
 	option_menu.visible = false
 	main_menu.visible = true
+
+
+func _on_title_start_but_pressed() -> void:
+	option_menu.visible = false
+	main_menu.visible = false
+	world_test.clear_and_disable()
+	game_mode.start()
