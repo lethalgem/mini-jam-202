@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://d0gvbh7yu61tg" path="res://scenes/title.tscn" id="1_fgkus"]
 [ext_resource type="AudioStream" uid="uid://dnlv8wmkr6cxx" path="res://assets/music/tekno-kick-loop-176-bpm-292894.mp3" id="2_sa3yf"]
 
-[node name="Control" type="Control"]
+[node name="TitleScreen" type="Control"]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5

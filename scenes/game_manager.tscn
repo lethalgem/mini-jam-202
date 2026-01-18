@@ -1,6 +1,37 @@
-[gd_scene load_steps=2 format=3 uid="uid://djamnxkf2jrfv"]
+[gd_scene load_steps=5 format=3 uid="uid://nixu5u0ubvkj"]
 
 [ext_resource type="Script" uid="uid://bwsscltki2nwo" path="res://scripts/game_manager.gd" id="1_hwd4i"]
+[ext_resource type="PackedScene" uid="uid://dxhwc2yxaknyr" path="res://scenes/counters_ui.tscn" id="2_glms7"]
+[ext_resource type="PackedScene" uid="uid://bwla1jk0c6r4k" path="res://scenes/title_screen.tscn" id="3_udu3i"]
+[ext_resource type="PackedScene" uid="uid://d3xkh61mfbxw6" path="res://scenes/gameover_screen.tscn" id="4_oo155"]
 
-[node name="GameManager" type="Node2D"]
+[node name="GameManager" type="Node2D" node_paths=PackedStringArray("counter_ui")]
 script = ExtResource("1_hwd4i")
+counter_ui = NodePath("CanvasLayer/CountersUI")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="CountersUI" parent="CanvasLayer" instance=ExtResource("2_glms7")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -326.0
+offset_top = 34.0
+offset_right = -324.0
+offset_bottom = 34.0
+grow_horizontal = 0
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="TitleScreen" parent="CanvasLayer2" instance=ExtResource("3_udu3i")]
+
+[node name="CanvasLayer3" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="EndScreen" parent="CanvasLayer3" instance=ExtResource("4_oo155")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
