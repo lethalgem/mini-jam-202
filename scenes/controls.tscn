@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://bh5nnwo23utsq"]
+
+[ext_resource type="FontFile" uid="uid://dr12mxnc3lejr" path="res://assets/fonts/dungeonmode/font/dungeon-mode.ttf" id="1_i2gav"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5tddo"]
+font = ExtResource("1_i2gav")
+font_size = 30
+font_color = Color(0.30588236, 1, 0.7607843, 1)
+shadow_color = Color(0.6784314, 0.21960784, 0.88235295, 0.53333336)
+
+[sub_resource type="LabelSettings" id="LabelSettings_cywyo"]
+font = ExtResource("1_i2gav")
+font_size = 20
+font_color = Color(1, 0.5322264, 0.30493927, 1)
+shadow_color = Color(0.5568628, 0.07450981, 1, 0.5529412)
+
+[node name="Controls" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -33.0
+offset_top = -25.0
+offset_right = 33.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="Controls" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Controls"
+label_settings = SubResource("LabelSettings_5tddo")
+horizontal_alignment = 1
+
+[node name="Details" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "A: Move Left
+D: Move Right
+Space: Attack
+Space x3: PowerUp
+ESC: Options Menu"
+label_settings = SubResource("LabelSettings_cywyo")
+horizontal_alignment = 1

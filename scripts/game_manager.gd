@@ -76,10 +76,10 @@ func _on_player_character_body_2d_died() -> void:
 
 
 func _on_game_over_play_again_pressed() -> void:
+	await get_tree().create_timer(0.5).timeout
 	get_tree().reload_current_scene()
 
 
 func _on_game_mode_enemy_died() -> void:
 	death_counter += 1
-
 	counter_ui.kill_counter_label.text ="Kill " + str(death_counter)
