@@ -1,5 +1,6 @@
 class_name GameMode extends Node2D
 
+signal enemy_died
 @export var platforms: TileMapLayer
 @export var character: PlayerCharacterBody2D
 
@@ -76,6 +77,7 @@ func _on_spawn_timeout():
 	enemy.scale = Vector2(scale_value, scale_value)
 	
 	add_child(enemy)
+	enemy.connect('enemy_death',enemy_died.emit)
 	
 	spawn_timer.wait_time = randf_range(min_spawn, max_spawn)
 	

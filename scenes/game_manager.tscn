@@ -1,12 +1,13 @@
-[gd_scene load_steps=14 format=4 uid="uid://rf2rog6xof1f"]
+[gd_scene load_steps=15 format=4 uid="uid://rf2rog6xof1f"]
 
 [ext_resource type="Script" uid="uid://bwsscltki2nwo" path="res://scripts/game_manager.gd" id="1_hwd4i"]
-[ext_resource type="PackedScene" path="res://scenes/counters_ui.tscn" id="2_glms7"]
-[ext_resource type="TileSet" uid="uid://crar72wnf6788" path="res://themes/tileset.tres" id="3_0rse5"]
+[ext_resource type="PackedScene" uid="uid://chm1xb5sunb63" path="res://scenes/counters_ui.tscn" id="2_glms7"]
+[ext_resource type="TileSet" uid="uid://ktk5hjqhgr38" path="res://themes/tileset.tres" id="3_0rse5"]
 [ext_resource type="PackedScene" uid="uid://d0gvbh7yu61tg" path="res://scenes/title.tscn" id="3_ternb"]
-[ext_resource type="PackedScene" uid="uid://cffpey8u54sob" path="res://scenes/option_menu.tscn" id="5_eaq8r"]
+[ext_resource type="PackedScene" uid="uid://bvl4xuub5eml" path="res://scenes/option_menu.tscn" id="5_eaq8r"]
 [ext_resource type="PackedScene" uid="uid://de1ktn3gt27h7" path="res://scenes/gameover.tscn" id="5_q8mjp"]
 [ext_resource type="AudioStream" uid="uid://dnlv8wmkr6cxx" path="res://assets/music/tekno-kick-loop-176-bpm-292894.mp3" id="6_ternb"]
+[ext_resource type="PackedScene" uid="uid://bh5nnwo23utsq" path="res://scenes/controls.tscn" id="7_aonbx"]
 [ext_resource type="PackedScene" uid="uid://ce0w7tddcjrxu" path="res://scenes/world_test.tscn" id="7_q8mjp"]
 [ext_resource type="Script" uid="uid://cubyyxwh2c5xk" path="res://scripts/game_mode.gd" id="8_frtjd"]
 [ext_resource type="PackedScene" uid="uid://b4o6qgy31lfq8" path="res://scenes/player_character_body_2d.tscn" id="8_jdad8"]
@@ -533,11 +534,44 @@ grow_vertical = 2
 visible = false
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer4"]
-offset_right = 1945.0
-offset_bottom = 1108.0
+offset_right = 1926.0
+offset_bottom = 1086.0
 color = Color(0, 0, 0, 0.6509804)
 
 [node name="OptionMenu" parent="CanvasLayer4" instance=ExtResource("5_eaq8r")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer4"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -593.0
+offset_top = -107.0
+offset_right = -229.0
+offset_bottom = 94.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.15686275)
+
+[node name="Controls" parent="CanvasLayer4/ColorRect2" instance=ExtResource("7_aonbx")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="TeknoKickLoop176Bpm292894" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_ternb")
@@ -569,4 +603,5 @@ rendering_quadrant_size = 24
 [connection signal="start_but_pressed" from="CanvasLayer2/Title" to="." method="_on_title_start_but_pressed"]
 [connection signal="play_again_pressed" from="CanvasLayer3/GameOver" to="." method="_on_game_over_play_again_pressed"]
 [connection signal="back_button_pressed" from="CanvasLayer4/OptionMenu" to="." method="_on_option_menu_back_button_pressed"]
+[connection signal="enemy_died" from="GameMode" to="." method="_on_game_mode_enemy_died"]
 [connection signal="died" from="GameMode/PlayerCharacterBody2D" to="." method="_on_player_character_body_2d_died"]
