@@ -1,33 +1,27 @@
-extends CharacterBody2D
-
-class_name Enemy
+class_name Enemy extends CharacterBody2D
 
 @export var Collision:CollisionShape2D
 @export var Sprite:AnimatedSprite2D
 @export var speed: float = 100.0
 @export var gravity := 800.0
 @export var falling := true
+@export var health := 3
+@export var should_move := true
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Sprite.play("swipe")
 	
 	randomize()
 	pick_new_direction()
-	
-	
-
-
-
 
 var stay := Vector2(0, 0)
 var left := Vector2(-1, 0)
 var right := Vector2(1, 0)
 var direction := right
 
-
 var lastTimeUpdate := 0
 var timePassed := 0.0
+
 
 func _process(delta):
 	timePassed += + delta
@@ -36,17 +30,14 @@ func _process(delta):
 		pick_new_direction()
 	
 	
-	
-
 func _physics_process(delta):
-	velocity.x = direction.x * speed
-	
-	if falling:
-		velocity.y += gravity * delta
-	else:
-		velocity.y = 0
+	if should_move:
+		velocity.x = direction.x * speed
 		
-	#print(velocity)
+		if falling:
+			velocity.y += gravity * delta
+		else:
+			velocity.y = 0
 		
 	move_and_slide()
 	
@@ -58,7 +49,16 @@ func _physics_process(delta):
 			if c.get_normal().x == 0 and c.get_normal().y == -1:
 				falling = false
 
-
+func take_damage():
+	health -= 1
+	if health == 0:
+		Sprite.play("die")
+		await Sprite.animation_finished
+		queue_free()
+	else:
+		Sprite.play("damaged")
+		await Sprite.animation_finished
+		Sprite.play("swipe")
 
 func pick_new_direction():
 	var randomValue = randf()

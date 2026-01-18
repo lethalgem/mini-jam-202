@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://b4o6qgy31lfq8"]
+[gd_scene load_steps=70 format=3 uid="uid://b4o6qgy31lfq8"]
 
 [ext_resource type="Script" uid="uid://cdhlrynx1jcd1" path="res://scripts/player_character_body_2d.gd" id="1_p1kb5"]
 [ext_resource type="Texture2D" uid="uid://tb7paibar2se" path="res://assets/characters/Hero_26.png" id="2_tdmta"]
@@ -525,10 +525,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_upai5"]
 size = Vector2(20, 19)
 
-[node name="PlayerCharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("animated_sprite_2D")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1kb5"]
+size = Vector2(12, 12)
+
+[node name="PlayerCharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("animated_sprite_2D", "attack_area_2D")]
 motion_mode = 1
 script = ExtResource("1_p1kb5")
 animated_sprite_2D = NodePath("AnimatedSprite2D")
+attack_area_2D = NodePath("AttackArea2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jieji")
@@ -537,3 +541,12 @@ animation = &"teleport_start"
 [node name="BodyCollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 6.5)
 shape = SubResource("RectangleShape2D_upai5")
+
+[node name="AttackArea2D" type="Area2D" parent="."]
+collision_mask = 3
+
+[node name="AttackCollisionShape2D" type="CollisionShape2D" parent="AttackArea2D"]
+position = Vector2(12, 7)
+shape = SubResource("RectangleShape2D_p1kb5")
+
+[connection signal="body_entered" from="AttackArea2D" to="." method="_on_attack_area_2d_body_entered"]

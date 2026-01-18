@@ -279,7 +279,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6vid2")
 }],
-"loop": true,
+"loop": false,
 "name": &"damaged",
 "speed": 10.0
 }, {
@@ -302,7 +302,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ty1jc")
 }],
-"loop": true,
+"loop": false,
 "name": &"die",
 "speed": 10.0
 }, {
@@ -333,7 +333,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gep6m"]
 size = Vector2(29, 35)
 
-[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("Collision", "Sprite")]
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("Collision", "Sprite")]
 collision_layer = 2
 script = ExtResource("1_gep6m")
 Collision = NodePath("BodyCollisionShape2D")
@@ -342,6 +342,8 @@ Sprite = NodePath("AnimatedSprite2D")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_opp35")
 animation = &"damaged"
+frame = 5
+frame_progress = 1.0
 
 [node name="BodyCollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, -2.5)
