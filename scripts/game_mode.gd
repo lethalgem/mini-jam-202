@@ -19,10 +19,6 @@ func _ready():
 	disable_and_hide()
 
 
-func start():
-	enable_and_show()
-
-
 func enable_and_show():
 	# enable collision and show the scene
 	platforms.collision_enabled = true
@@ -54,7 +50,7 @@ func set_pause_subtree(root: Node, should_pause: bool) -> void:
 	"set_process_input",
 	"set_process_unhandled_input",
 	"set_process_unhandled_key_input",
-	"set_process_shortcut_input",]
+	"set_process_shortcut_input"]
 	
 	for setter in process_setters:
 		root.propagate_call(setter, [!should_pause])

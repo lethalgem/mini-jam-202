@@ -5,6 +5,7 @@ class_name GameManager extends Node2D
 
 @onready var main_menu = $CanvasLayer2
 @onready var option_menu = $CanvasLayer4
+@onready var option_menu_button = $CanvasLayer4/OptionMenu/VBoxContainer/BackButton
 @onready var world_test := $CanvasLayer2/WorldTest as WorldTest
 
 var time_since_time_update: float = 0
@@ -13,15 +14,14 @@ var is_paused := true:
 	set(should_pause):
 		if should_pause:
 			game_mode.pause()
-			option_menu.visible = false
-			main_menu.visible = true
-			world_test.reenable()
+			option_menu.visible = true
+			main_menu.visible = false
+			option_menu_button.visible = false
 		else:
 			game_mode.unpause()
 			option_menu.visible = false
 			main_menu.visible = false
 			world_test.clear_and_disable()
-			game_mode.start()
 		is_paused = should_pause
 
 
