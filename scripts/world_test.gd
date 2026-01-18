@@ -50,9 +50,16 @@ func clear_and_disable():
 	for child in get_parent().get_children():
 		if child is Enemy:
 			child.queue_free()
+	for child in get_children():
+		if child is TileMapLayer:
+			print(child)
+			child.collision_enabled = false
 
 func reenable():
 	spawn_timer.start()
+	for child in get_children():
+		if child is TileMapLayer:
+			child.collision_enabled = true
 	
 	
 	

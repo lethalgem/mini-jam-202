@@ -27,7 +27,6 @@ func _on_start_button_pressed() -> void:
 	button_sound.play()
 
 func start_pressed_animation() -> void:
-	print("pressed start game")
 	var tween := create_tween()
 	var hover_color = start_button.get_theme_color("font_hover_color")
 	var pressed_color = start_button.get_theme_color('font_focus_color')

@@ -18,33 +18,37 @@ func _ready():
 	add_child(spawn_timer)
 	disable_and_hide()
 
+
 func start():
 	enable_and_show()
+
 
 func enable_and_show():
 	# enable collision and show the scene
 	platforms.collision_enabled = true
 	character.collision_layer = 1
-	visible = true
 	spawn_timer.start()
+
 
 func disable_and_hide():
 	# disable collision and hide
 	platforms.collision_enabled = false
 	character.collision_layer = 0
-	visible = false
 	spawn_timer.stop()
+
 
 func pause():
 	disable_and_hide()
 	set_pause_subtree(self, true)
 
+
 func unpause():
 	enable_and_show()
 	set_pause_subtree(self, false)
 
+
 # Pauses every node starting at the root and deeper
-func set_pause_subtree(root: Node, pause: bool) -> void:
+func set_pause_subtree(root: Node, should_pause: bool) -> void:
 	var process_setters = ["set_process",
 	"set_physics_process",
 	"set_process_input",
@@ -53,7 +57,7 @@ func set_pause_subtree(root: Node, pause: bool) -> void:
 	"set_process_shortcut_input",]
 	
 	for setter in process_setters:
-		root.propagate_call(setter, [!pause])
+		root.propagate_call(setter, [!should_pause])
 
 
 func _on_spawn_timeout():
@@ -75,9 +79,10 @@ func _on_spawn_timeout():
 	
 	enemy.scale = Vector2(scale_value, scale_value)
 	
-	get_parent().add_child(enemy)
+	add_child(enemy)
 	
 	spawn_timer.wait_time = randf_range(min_spawn, max_spawn)
+	
 	
 func randf_normal(mean := 1.0, std_dev := 0.15) -> float:
 	var u1 = randf()
