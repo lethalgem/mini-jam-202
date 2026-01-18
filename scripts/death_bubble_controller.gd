@@ -21,4 +21,5 @@ func spawn_wave(current_wave_count):
 		death_bubble_instance.global_position = global_position
 		death_bubble_instance.speed /= current_wave_count
 		death_bubble_instance.scale = scale
+		death_bubble_instance.z_index = 100
 		death_bubble_instance.spawn(direction)

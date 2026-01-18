@@ -10,6 +10,8 @@ class_name PlayerCharacterBody2D extends CharacterBody2D
 @export var speed := 300.0
 @export var health := 10
 
+signal died
+
 enum State {
 	IDLE,
 	WALK,
@@ -37,7 +39,8 @@ func die():
 	death_bubble_controller.scale = scale
 	death_bubble_controller.start()
 	queue_free()
-
+	
+	died.emit()
 
 func _physics_process(delta):
 	if state in [State.ATTACK, State.DAMAGED, State.DEAD]:

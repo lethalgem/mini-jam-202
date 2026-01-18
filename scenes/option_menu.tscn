@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bvl4xuub5eml"]
+[gd_scene load_steps=6 format=3 uid="uid://cffpey8u54sob"]
 
 [ext_resource type="Script" uid="uid://cyrqqjgf4orpm" path="res://scripts/option_menu.gd" id="1_40sux"]
 [ext_resource type="FontFile" uid="uid://dr12mxnc3lejr" path="res://assets/fonts/dungeonmode/font/dungeon-mode.ttf" id="1_hecwe"]
