@@ -2,6 +2,7 @@ class_name Enemy extends CharacterBody2D
 
 @export var Collision:CollisionShape2D
 @export var Sprite:AnimatedSprite2D
+@export var attack_area_2D: Area2D
 @export var attack_collision_shape_2D: CollisionShape2D
 @export var speed: float = 100.0
 @export var gravity := 800.0
@@ -9,57 +10,132 @@ class_name Enemy extends CharacterBody2D
 @export var health := 3
 @export var should_move := true
 
-func _ready() -> void:
-	Sprite.play("swipe")
-	
-	randomize()
-	pick_new_direction()
+const ATTACK_START_FRAME := 3
+const ATTACK_END_FRAME := 5
 
 var stay := Vector2(0, 0)
 var left := Vector2(-1, 0)
 var right := Vector2(1, 0)
 var direction := right
-
 var lastTimeUpdate := 0
 var timePassed := 0.0
+var attack_cooldown := 1.0
+var attack_timer := 0.0
+var has_hit := false
+
+enum State {
+	IDLE,
+	WALK,
+	ATTACK,
+	DAMAGED,
+	DEAD
+}
+
+var state: State = State.IDLE
+
+func _ready() -> void:
+	attack_area_2D.monitoring = false
+	attack_area_2D.visible = false
+	randomize()
+	pick_new_direction()
 
 
 func _process(delta):
-	timePassed += + delta
+	attack_timer += delta
+
+	if state in [State.IDLE, State.WALK] and attack_timer >= attack_cooldown:
+		attack_timer = 0
+		start_attack()
+
+	timePassed += delta
 	if int(timePassed - lastTimeUpdate) >= 1:
 		lastTimeUpdate += 1
 		pick_new_direction()
-	
-	
+
+
 func _physics_process(delta):
+	if state in [State.ATTACK, State.DAMAGED, State.DEAD]:
+		move_and_slide()
+		return
+
+
 	if should_move:
 		velocity.x = direction.x * speed
-		
-		if falling:
-			velocity.y += gravity * delta
-		else:
-			velocity.y = 0
-		
-	move_and_slide()
-	
-	if get_slide_collision_count() == 0:
-		falling = true
 	else:
-		for i in range(get_slide_collision_count()):
-			var c = get_slide_collision(i)
-			if c.get_normal().x == 0 and c.get_normal().y == -1:
-				falling = false
+		velocity.x = 0
+
+	if falling:
+		velocity.y += gravity * delta
+	else:
+		velocity.y = 0
+
+	move_and_slide()
+
+	falling = true
+	for i in range(get_slide_collision_count()):
+		var c = get_slide_collision(i)
+		if c.get_normal().y == -1:
+			falling = false
+			break
+
+	if velocity.x == 0:
+		state = State.IDLE
+	else:
+		state = State.WALK
+				
+	update_animation()
+
+func update_animation():
+	if state == State.DEAD:
+		return
+
+	match state:
+		State.ATTACK:
+			pass # attack animation already playing
+		State.DAMAGED:
+			pass # damage animation already playing
+		State.WALK:
+			if Sprite.animation != "walk":
+				Sprite.play("walk")
+		State.IDLE:
+			if Sprite.animation != "chill":
+				Sprite.play("chill")
+
+func start_attack():
+	if state in [State.DEAD, State.DAMAGED]:
+		return
+
+	if falling:
+		return
+
+	state = State.ATTACK
+	has_hit = false
+	Sprite.play("swipe")
+
 
 func take_damage():
-	if health >= 1:
-		health -= 1
-		Sprite.play("damaged")
-		Sprite.frame = 0
-	else:
+	if state == State.DEAD:
+		return
+
+	attack_area_2D.monitoring = false
+	attack_area_2D.visible = false
+
+	health -= 1
+
+	if health <= 0:
+		state = State.DEAD
 		Sprite.play("die")
 		await Sprite.animation_finished
 		queue_free()
-		
+		return
+
+	state = State.DAMAGED
+	Sprite.play("damaged")
+	Sprite.frame = 0
+
+	await Sprite.animation_finished
+	state = State.IDLE
+
 
 func pick_new_direction():
 	var randomValue = randf()
@@ -95,6 +171,28 @@ func pick_new_direction():
 
 
 func _on_attacking_area_2d_body_entered(body: Node2D) -> void:
-	print(body)
+	if state != State.ATTACK or has_hit:
+		return
+
 	if body.has_method("take_damage"):
 		body.take_damage()
+		has_hit = true
+
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	if Sprite.animation == "swipe":
+		attack_area_2D.monitoring = false
+		attack_area_2D.visible = false
+		attack_timer = 0
+		state = State.IDLE
+
+
+func _on_animated_sprite_2d_frame_changed() -> void:
+	if state != State.ATTACK or Sprite.animation != "swipe":
+		return
+
+	var frame := Sprite.frame
+
+	var active := frame >= ATTACK_START_FRAME and frame <= ATTACK_END_FRAME
+	attack_area_2D.monitoring = active
+	attack_area_2D.visible = active

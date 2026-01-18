@@ -325,7 +325,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hgrex")
 }],
-"loop": true,
+"loop": false,
 "name": &"swipe",
 "speed": 10.0
 }]
@@ -336,18 +336,17 @@ size = Vector2(29, 35)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ainam"]
 size = Vector2(53, 31)
 
-[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("Collision", "Sprite", "attack_collision_shape_2D")]
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("Collision", "Sprite", "attack_area_2D", "attack_collision_shape_2D")]
 collision_layer = 2
 script = ExtResource("1_gep6m")
 Collision = NodePath("BodyCollisionShape2D")
 Sprite = NodePath("AnimatedSprite2D")
+attack_area_2D = NodePath("AttackingArea2D")
 attack_collision_shape_2D = NodePath("AttackingArea2D/AttackingCollisionShape2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_opp35")
 animation = &"damaged"
-frame = 5
-frame_progress = 1.0
 
 [node name="BodyCollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, -2.5)
@@ -360,4 +359,7 @@ position = Vector2(-1, 0)
 position = Vector2(15.5, 0.5)
 shape = SubResource("RectangleShape2D_ainam")
 
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
+[connection signal="sprite_frames_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_sprite_frames_changed"]
 [connection signal="body_entered" from="AttackingArea2D" to="." method="_on_attacking_area_2d_body_entered"]

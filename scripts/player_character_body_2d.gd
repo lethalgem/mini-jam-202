@@ -19,8 +19,10 @@ func _ready():
 func attack():
 	animated_sprite_2D.play("slash", attack_speed)
 	attack_area_2D.monitoring = true
+	attack_area_2D.visible = true
 	await animated_sprite_2D.animation_finished
 	attack_area_2D.monitoring = false
+	attack_area_2D.visible = false
 	idle()
 
 func idle():
@@ -84,5 +86,6 @@ func take_damage():
 
 
 func _on_attack_area_2d_body_entered(body: Node2D) -> void:
-	if body.has_method("take_damage"):
+	if body.has_method("take_damage") and body is Enemy:
+		print("yeet")
 		body.take_damage()
