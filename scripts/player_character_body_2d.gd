@@ -33,7 +33,6 @@ func start_teleport(location: Vector2):
 func attack():
 	animated_sprite_2D.play("slash", attack_speed)
 	await animated_sprite_2D.animation_finished
-	#die()
 	idle()
 
 func powerUp():
