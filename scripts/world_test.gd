@@ -2,11 +2,6 @@ extends Node2D
 
 @onready var enemy_scene = preload("res://scenes/enemy_test.tscn")
 var spawn_points = [] # Array to hold possible spawn positions (Vector2)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 	
 @export var min_spawn := 0.05
 @export var max_spawn := 0.3

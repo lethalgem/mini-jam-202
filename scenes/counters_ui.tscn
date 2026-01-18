@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://chm1xb5sunb63"]
+
+[ext_resource type="LabelSettings" uid="uid://bmtpogkdaryn6" path="res://themes/counters_ui.tres" id="1_50mn7"]
+[ext_resource type="Script" uid="uid://lkx3ok13pggc" path="res://scripts/counters_ui.gd" id="1_hikhd"]
+
+[node name="CountersUI" type="Control" node_paths=PackedStringArray("kill_counter_label", "time_label")]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_hikhd")
+kill_counter_label = NodePath("HBoxContainer/KillsLabel")
+time_label = NodePath("HBoxContainer/TimeLabel")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -20.0
+offset_right = 150.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 150
+
+[node name="TimeLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Time Survived"
+label_settings = ExtResource("1_50mn7")
+horizontal_alignment = 1
+
+[node name="KillsLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Kills"
+label_settings = ExtResource("1_50mn7")
+horizontal_alignment = 1
