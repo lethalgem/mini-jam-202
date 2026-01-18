@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://nixu5u0ubvkj"]
+
+[ext_resource type="Script" uid="uid://bwsscltki2nwo" path="res://scripts/game_manager.gd" id="1_hwd4i"]
+[ext_resource type="PackedScene" uid="uid://chm1xb5sunb63" path="res://scenes/counters_ui.tscn" id="2_glms7"]
+[ext_resource type="PackedScene" uid="uid://d0gvbh7yu61tg" path="res://scenes/title.tscn" id="3_ternb"]
+[ext_resource type="PackedScene" uid="uid://d3xkh61mfbxw6" path="res://scenes/gameover_screen.tscn" id="4_oo155"]
+[ext_resource type="PackedScene" uid="uid://bvl4xuub5eml" path="res://scenes/option_menu.tscn" id="5_eaq8r"]
+[ext_resource type="AudioStream" uid="uid://dnlv8wmkr6cxx" path="res://assets/music/tekno-kick-loop-176-bpm-292894.mp3" id="6_ternb"]
+[ext_resource type="PackedScene" uid="uid://ce0w7tddcjrxu" path="res://scenes/world_test.tscn" id="7_q8mjp"]
+
+[node name="GameManager" type="Node2D" node_paths=PackedStringArray("counter_ui")]
+script = ExtResource("1_hwd4i")
+counter_ui = NodePath("CanvasLayer/CountersUI")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="CountersUI" parent="CanvasLayer" instance=ExtResource("2_glms7")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -326.0
+offset_top = 34.0
+offset_right = -324.0
+offset_bottom = 34.0
+grow_horizontal = 0
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Title" parent="CanvasLayer2" instance=ExtResource("3_ternb")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WorldTest" parent="CanvasLayer2" instance=ExtResource("7_q8mjp")]
+visible = false
+
+[node name="CanvasLayer3" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="EndScreen" parent="CanvasLayer3" instance=ExtResource("4_oo155")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="CanvasLayer4" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="OptionMenu" parent="CanvasLayer4" instance=ExtResource("5_eaq8r")]
+
+[node name="TeknoKickLoop176Bpm292894" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_ternb")
+autoplay = true
+bus = &"Music"
+parameters/looping = true
+
+[connection signal="option_but_pressed" from="CanvasLayer2/Title" to="." method="_on_title_option_but_pressed"]
+[connection signal="back_button_pressed" from="CanvasLayer4/OptionMenu" to="." method="_on_option_menu_back_button_pressed"]

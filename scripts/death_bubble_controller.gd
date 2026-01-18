@@ -2,7 +2,6 @@ class_name DeathBubbleController extends Node2D
 
 @export var count_per_wave: int = 8
 @export var wave_count: int = 3
-@export var time_between_waves: float = 0.1
 
 var death_bubble = preload("res://scenes/death_bubble_rigid_body_2d.tscn")
 
