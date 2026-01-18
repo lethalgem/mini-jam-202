@@ -1,7 +1,21 @@
-[gd_scene load_steps=70 format=3 uid="uid://b4o6qgy31lfq8"]
+[gd_scene load_steps=75 format=3 uid="uid://b4o6qgy31lfq8"]
 
 [ext_resource type="Script" uid="uid://cdhlrynx1jcd1" path="res://scripts/player_character_body_2d.gd" id="1_p1kb5"]
+[ext_resource type="Script" uid="uid://b7fviwwanh0pa" path="res://scripts/sound_sample.gd" id="2_8aw4b"]
 [ext_resource type="Texture2D" uid="uid://tb7paibar2se" path="res://assets/characters/Hero_26.png" id="2_tdmta"]
+[ext_resource type="AudioStream" uid="uid://btvhk5pq1iph8" path="res://assets/sfx/sword-air-swing-2-437695.mp3" id="3_tdmta"]
+[ext_resource type="AudioStream" uid="uid://c5dcr8tdx43h0" path="res://assets/sfx/sword-swing-sfx-407574.mp3" id="4_1hlru"]
+
+[sub_resource type="Resource" id="Resource_jyvm6"]
+script = ExtResource("2_8aw4b")
+stream = ExtResource("3_tdmta")
+start_time = 1.0
+metadata/_custom_type_script = "uid://b7fviwwanh0pa"
+
+[sub_resource type="Resource" id="Resource_kpds2"]
+script = ExtResource("2_8aw4b")
+stream = ExtResource("4_1hlru")
+metadata/_custom_type_script = "uid://b7fviwwanh0pa"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8ut53"]
 atlas = ExtResource("2_tdmta")
@@ -528,12 +542,14 @@ size = Vector2(20, 19)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p1kb5"]
 size = Vector2(12, 12)
 
-[node name="PlayerCharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("animated_sprite_2D", "attack_area_2D", "attack_collision_shape_2D")]
+[node name="PlayerCharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("animated_sprite_2D", "attack_area_2D", "attack_collision_shape_2D", "audio_stream_player_2D")]
 script = ExtResource("1_p1kb5")
 animated_sprite_2D = NodePath("AnimatedSprite2D")
 attack_area_2D = NodePath("AttackArea2D")
 attack_collision_shape_2D = NodePath("AttackArea2D/AttackCollisionShape2D")
+audio_stream_player_2D = NodePath("AudioStreamPlayer2D")
 attack_speed = 1.5
+attack_sounds = Array[ExtResource("2_8aw4b")]([SubResource("Resource_jyvm6"), SubResource("Resource_kpds2")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jieji")
@@ -549,6 +565,9 @@ collision_mask = 3
 [node name="AttackCollisionShape2D" type="CollisionShape2D" parent="AttackArea2D"]
 position = Vector2(12, 7)
 shape = SubResource("RectangleShape2D_p1kb5")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_tdmta")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="AttackArea2D" to="." method="_on_attack_area_2d_body_entered"]

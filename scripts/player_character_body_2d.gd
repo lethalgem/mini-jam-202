@@ -3,12 +3,14 @@ class_name PlayerCharacterBody2D extends CharacterBody2D
 @export var animated_sprite_2D: AnimatedSprite2D
 @export var attack_area_2D: Area2D
 @export var attack_collision_shape_2D: CollisionShape2D
+@export var audio_stream_player_2D: AudioStreamPlayer2D
 
 @export var attack_speed: float = 1.0
 @export var idle_speed: float = 1.0
 @export var death_speed: float = 1.0
 @export var speed := 300.0
 @export var health := 10
+@export var attack_sounds: Array[SoundSample]
 
 signal died
 
@@ -22,6 +24,7 @@ enum State {
 
 var state: State = State.IDLE
 var death_bubble_controller_scene := preload("res://scenes/death_bubble_controller.tscn")
+var sword_swing_sound := preload("res://assets/sfx/sword-air-swing-2-437695.mp3")
 var taking_damage := false
 
 func _ready():
@@ -97,9 +100,20 @@ func start_attack():
 
 	state = State.ATTACK
 	animated_sprite_2D.play("slash", attack_speed)
+	play_attack_sound()
 	attack_area_2D.monitoring = true
 	attack_area_2D.visible = true
 
+func play_attack_sound():
+	if attack_sounds.is_empty():
+		return
+
+	var sample: SoundSample = attack_sounds.pick_random()
+
+	audio_stream_player_2D.stream = sample.stream
+	audio_stream_player_2D.volume_db = sample.volume_db
+	audio_stream_player_2D.pitch_scale = sample.pitch_scale + randf_range(-0.05, 0.05)
+	audio_stream_player_2D.play(sample.start_time)
 
 func take_damage():
 	if state == State.DEAD:
