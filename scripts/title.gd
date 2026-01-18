@@ -13,6 +13,8 @@ func _ready() -> void:
 	await get_tree().process_frame
 	play_floating_animation()
 	button_animation(gen_button)
+	
+	
 func play_floating_animation() -> void: 
 	var tween := create_tween()
 
@@ -23,9 +25,11 @@ func play_floating_animation() -> void:
 	
 	tween.set_loops()
 
+
 func _on_start_button_pressed() -> void:
 	start_but_pressed.emit()
 	button_sound.play()
+
 
 func button_animation(button:Button) -> void:
 	print("pressed start game")
@@ -36,6 +40,7 @@ func button_animation(button:Button) -> void:
 	tween.tween_property(button,"theme_override_colors/font_color",pressed_color,duration).set_trans(Tween.TRANS_BOUNCE)
 	tween.tween_property(button,"theme_override_colors/font_color",hover_color,duration).set_trans(Tween.TRANS_BOUNCE)
 	tween.set_loops()
+
 
 func _on_option_button_pressed() -> void:
 	option_but_pressed.emit()
