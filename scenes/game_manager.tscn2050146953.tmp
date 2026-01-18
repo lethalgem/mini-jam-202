@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://nixu5u0ubvkj"]
+
+[ext_resource type="Script" uid="uid://bwsscltki2nwo" path="res://scripts/game_manager.gd" id="1_hwd4i"]
+[ext_resource type="PackedScene" uid="uid://chm1xb5sunb63" path="res://scenes/counters_ui.tscn" id="2_glms7"]
+
+[node name="GameManager" type="Node2D" node_paths=PackedStringArray("counter_ui")]
+script = ExtResource("1_hwd4i")
+counter_ui = NodePath("CanvasLayer/CountersUI")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CountersUI" parent="CanvasLayer" instance=ExtResource("2_glms7")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -341.0
+offset_top = 44.0
+offset_right = -339.0
+offset_bottom = 44.0
+grow_horizontal = 0

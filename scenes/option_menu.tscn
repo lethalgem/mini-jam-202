@@ -1,0 +1,102 @@
+[gd_scene load_steps=6 format=3 uid="uid://cffpey8u54sob"]
+
+[ext_resource type="Script" uid="uid://cyrqqjgf4orpm" path="res://scripts/option_menu.gd" id="1_40sux"]
+[ext_resource type="FontFile" uid="uid://dr12mxnc3lejr" path="res://assets/fonts/dungeonmode/font/dungeon-mode.ttf" id="1_hecwe"]
+[ext_resource type="LabelSettings" uid="uid://dtwnci3mw57gs" path="res://themes/option_menu.tres" id="2_hrgik"]
+[ext_resource type="Script" uid="uid://f0edin04si80" path="res://scripts/volume_slider.gd" id="3_1xj3o"]
+[ext_resource type="AudioStream" uid="uid://c7ecwpu2562j2" path="res://assets/sfx/arcade-ui-14-229514.mp3" id="5_2mid4"]
+
+[node name="OptionMenu" type="Control" node_paths=PackedStringArray("button_sound")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = 2.0
+offset_right = -16.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_40sux")
+button_sound = NodePath("ArcadeUi14229514")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -118.0
+offset_top = -45.0
+offset_right = 118.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="Master" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Master"
+label_settings = ExtResource("2_hrgik")
+horizontal_alignment = 1
+
+[node name="MasterVolume" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+script = ExtResource("3_1xj3o")
+bus_name = "Master"
+
+[node name="MusicVolume" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_hecwe")
+text = "Music"
+label_settings = ExtResource("2_hrgik")
+horizontal_alignment = 1
+
+[node name="MusicSlider" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+script = ExtResource("3_1xj3o")
+bus_name = "Music"
+
+[node name="SFXVolume" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_hecwe")
+text = "SFX"
+label_settings = ExtResource("2_hrgik")
+horizontal_alignment = 1
+
+[node name="SFXSlider" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+script = ExtResource("3_1xj3o")
+bus_name = "SFX"
+
+[node name="BackButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9764706, 0.654902, 0, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.9490196, 0.827451, 0.08235294, 1)
+theme_override_colors/font_hover_color = Color(0.16862746, 0.8901961, 0.90588236, 1)
+theme_override_colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+theme_override_colors/font_outline_color = Color(0.09019608, 0, 0.6784314, 0.58431375)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("1_hecwe")
+theme_override_font_sizes/font_size = 30
+text = "Back"
+flat = true
+
+[node name="ArcadeUi14229514" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_2mid4")
+bus = &"SFX"
+
+[connection signal="value_changed" from="VBoxContainer/MasterVolume" to="VBoxContainer/MasterVolume" method="_on_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/MusicSlider" to="VBoxContainer/MusicSlider" method="_on_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/SFXSlider" to="VBoxContainer/SFXSlider" method="_on_value_changed"]
+[connection signal="pressed" from="VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

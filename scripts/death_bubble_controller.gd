@@ -2,7 +2,6 @@ class_name DeathBubbleController extends Node2D
 
 @export var count_per_wave: int = 8
 @export var wave_count: int = 3
-@export var time_between_waves: float = 0.1
 
 var death_bubble = preload("res://scenes/death_bubble_rigid_body_2d.tscn")
 
@@ -22,4 +21,5 @@ func spawn_wave(current_wave_count):
 		death_bubble_instance.global_position = global_position
 		death_bubble_instance.speed /= current_wave_count
 		death_bubble_instance.scale = scale
+		death_bubble_instance.z_index = 100
 		death_bubble_instance.spawn(direction)
