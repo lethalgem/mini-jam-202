@@ -50,15 +50,15 @@ func _physics_process(delta):
 				falling = false
 
 func take_damage():
-	health -= 1
-	if health == 0:
+	if health >= 1:
+		health -= 1
+		Sprite.play("damaged")
+		Sprite.frame = 0
+	else:
 		Sprite.play("die")
 		await Sprite.animation_finished
 		queue_free()
-	else:
-		Sprite.play("damaged")
-		await Sprite.animation_finished
-		Sprite.play("swipe")
+		
 
 func pick_new_direction():
 	var randomValue = randf()
@@ -83,6 +83,3 @@ func pick_new_direction():
 		else:
 			direction = right
 			Sprite.flip_h = false
-		
-	
-	

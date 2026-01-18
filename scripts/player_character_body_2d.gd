@@ -2,12 +2,11 @@ class_name PlayerCharacterBody2D extends CharacterBody2D
 
 @export var animated_sprite_2D: AnimatedSprite2D
 @export var attack_area_2D: Area2D
+@export var attack_collision_shape_2D: CollisionShape2D
 
-@export var teleport_speed: float = 2.0
 @export var attack_speed: float = 1.0
 @export var idle_speed: float = 1.0
 @export var death_speed: float = 1.0
-@export var attack_cooldown: float = 1.0
 @export var speed := 300.0
 
 var death_bubble_controller_scene := preload("res://scenes/death_bubble_controller.tscn")
@@ -25,6 +24,10 @@ func attack():
 func idle():
 	attack_area_2D.monitoring = false
 	animated_sprite_2D.play("idle", idle_speed)
+
+func walk():
+	attack_area_2D.monitoring = false
+	animated_sprite_2D.play("walk", idle_speed)
 
 func die():
 	attack_area_2D.monitoring = false
@@ -45,12 +48,21 @@ func _physics_process(_delta):
 	if Input.is_action_pressed("ui_left"):
 		direction -= 1
 		animated_sprite_2D.flip_h = true
+		if attack_collision_shape_2D.position.x > 0:
+			attack_collision_shape_2D.position.x = -attack_collision_shape_2D.position.x
 	if Input.is_action_pressed("ui_right"):
 		direction += 1
 		animated_sprite_2D.flip_h = false
+		if attack_collision_shape_2D.position.x < 0:
+			attack_collision_shape_2D.position.x = -attack_collision_shape_2D.position.x
 
 	velocity.x = direction * speed
 	velocity.y = 0 
+
+	if velocity.x != 0 and not attack_area_2D.monitoring:
+		walk()
+	elif velocity.x == 0 and not attack_area_2D.monitoring:
+		idle()
 
 	move_and_slide()
 	
@@ -59,6 +71,5 @@ func _physics_process(_delta):
 
 
 func _on_attack_area_2d_body_entered(body: Node2D) -> void:
-	print(body)
 	if body.has_method("take_damage"):
 		body.take_damage()

@@ -528,11 +528,13 @@ size = Vector2(20, 19)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p1kb5"]
 size = Vector2(12, 12)
 
-[node name="PlayerCharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("animated_sprite_2D", "attack_area_2D")]
+[node name="PlayerCharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("animated_sprite_2D", "attack_area_2D", "attack_collision_shape_2D")]
 motion_mode = 1
 script = ExtResource("1_p1kb5")
 animated_sprite_2D = NodePath("AnimatedSprite2D")
 attack_area_2D = NodePath("AttackArea2D")
+attack_collision_shape_2D = NodePath("AttackArea2D/AttackCollisionShape2D")
+attack_speed = 1.5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jieji")
