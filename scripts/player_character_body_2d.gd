@@ -8,8 +8,9 @@ class_name PlayerCharacterBody2D extends CharacterBody2D
 
 @export var attack_speed: float = 1.0
 @export var idle_speed: float = 1.0
+@export var walk_speed: float = 2.0
 @export var death_speed: float = 1.0
-@export var speed := 300.0
+@export var speed := 500.0
 @export var gravity := 800.0
 @export var health := 10
 @export var attack_sounds: Array[SoundSample]
@@ -147,7 +148,7 @@ func update_animation():
 			#pass # damage animation already playing
 		State.WALK:
 			if animated_sprite_2D.animation != "walk" and not state == State.DAMAGED:
-				animated_sprite_2D.play("walk", idle_speed)
+				animated_sprite_2D.play("walk", walk_speed)
 		State.IDLE:
 			if animated_sprite_2D.animation != "idle" and not state == State.DAMAGED:
 				animated_sprite_2D.play("idle", idle_speed)
