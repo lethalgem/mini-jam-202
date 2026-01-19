@@ -28,11 +28,10 @@ func _on_spawn_timeout():
 	enemy.global_position = Vector2(spawn_x, spawn_y)
 	enemy.speed = randf_range(65, 350)
 	
-	var scale_value = randf_normal(1.3, 1)
-	while scale_value > 4:
-		scale_value = randf_normal(1.3, 1)
-	scale_value = max(scale_value, .7)
-	
+	var scale_value = randf_normal(2.5, 1)
+	while scale_value > 5.0 or scale_value < 2.0:
+		scale_value = randf_normal(2.5, 1)
+		
 	enemy.scale = Vector2(scale_value, scale_value)
 	
 	get_parent().add_child(enemy)

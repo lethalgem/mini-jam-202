@@ -40,6 +40,7 @@ var state: State = State.IDLE
 func _ready() -> void:
 	attack_area_2D.monitoring = false
 	attack_area_2D.visible = false
+	health = scale.x
 	randomize()
 	pick_new_direction()
 
@@ -116,14 +117,18 @@ func start_attack():
 	Sprite.play("swipe")
 
 
-func take_damage():
+func take_damage(damage=1):
 	if state == State.DEAD:
 		return
 
 	attack_area_2D.monitoring = false
 	attack_area_2D.visible = false
 
-	health -= 1
+	#health -= 1
+	health -= damage
+	
+	var scaleValue = max(health / 2, 1)
+	scale = Vector2(scaleValue, scaleValue)
 
 	if health <= 0:
 		enemy_death.emit()

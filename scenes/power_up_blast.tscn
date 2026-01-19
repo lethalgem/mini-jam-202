@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdfacjdr6tmcn"]
+
+[ext_resource type="Script" uid="uid://hwr3xsmdcerd" path="res://scripts/power_up_blast.gd" id="1_885hc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_885hc"]
+
+[node name="PowerUpBlast" type="Area2D"]
+collision_layer = 7
+collision_mask = 7
+script = ExtResource("1_885hc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_885hc")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

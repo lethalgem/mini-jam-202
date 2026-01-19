@@ -6,8 +6,8 @@ signal enemy_died
 
 @onready var enemy_scene = preload("res://scenes/enemy_test.tscn")
 
-@export var min_spawn := 1.0
-@export var max_spawn := 2.0
+@export var min_spawn := 0.5
+@export var max_spawn := 1.0
 
 var spawn_timer: Timer
 
@@ -58,6 +58,23 @@ func set_pause_subtree(root: Node, should_pause: bool) -> void:
 
 
 func _on_spawn_timeout():
+	generateEnemy()
+	
+
+var floodCount := 0
+var floodAmount := 7
+
+func floodSpawn():
+	
+	for i in range(floodAmount):
+		generateEnemy()
+		await get_tree().create_timer(0.05).timeout
+		
+	floodCount += 1
+	floodAmount *= 1.3
+	
+		
+func generateEnemy():
 	var enemy := enemy_scene.instantiate() as Enemy
 	
 	var rect = get_viewport().get_visible_rect()
@@ -69,10 +86,9 @@ func _on_spawn_timeout():
 	enemy.global_position = Vector2(spawn_x, spawn_y)
 	enemy.speed = randf_range(65, 350)
 	
-	var scale_value = randf_normal(1.3, 1)
-	while scale_value > 4:
-		scale_value = randf_normal(1.3, 1)
-	scale_value = max(scale_value, .7)
+	var scale_value = randf_normal(2.5, 1)
+	while scale_value > 5.0 or scale_value < 2.0:
+		scale_value = randf_normal(2.5, 1)
 	
 	enemy.scale = Vector2(scale_value, scale_value)
 	
@@ -87,3 +103,7 @@ func randf_normal(mean := 1.0, std_dev := 0.15) -> float:
 	var u2 = randf()
 	var z0 = sqrt(-2.0 * log(u1)) * cos(TAU * u2)
 	return mean + z0 * std_dev
+
+
+func _on_player_character_body_2d_poweredup() -> void:
+	floodSpawn()

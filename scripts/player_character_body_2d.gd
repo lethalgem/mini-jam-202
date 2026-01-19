@@ -9,12 +9,14 @@ class_name PlayerCharacterBody2D extends CharacterBody2D
 @export var idle_speed: float = 1.0
 @export var death_speed: float = 1.0
 @export var speed := 300.0
+@export var gravity := 800.0
 @export var health := 10
 @export var attack_sounds: Array[SoundSample]
 @export var damaged_sounds: Array[SoundSample]
 @export var death_sounds: Array[SoundSample]
 
 signal died
+signal poweredup
 
 enum State {
 	IDLE,
@@ -26,10 +28,76 @@ enum State {
 
 var state: State = State.IDLE
 var death_bubble_controller_scene := preload("res://scenes/death_bubble_controller.tscn")
+var power_up_blast := preload("res://scenes/power_up_blast.tscn")
+
+var falling := false
+
+var quickSpacePressCount := 0
+var quickSpaceStartTime := Time.get_ticks_msec()
+var powerUpCoolDown := Time.get_ticks_msec()
+
+
+func _input(event):
+	#if event.is_action_pressed("radial_blast"):
+		#powerUp()
+		
+	if event.is_action_pressed("attack"):
+		var nowTime := Time.get_ticks_msec()
+		var ellapsed = nowTime - quickSpaceStartTime
+		
+		if nowTime - powerUpCoolDown < 2000 or ellapsed > 500:
+			quickSpaceStartTime = nowTime
+			quickSpacePressCount = 1
+			
+			print('Reset: ' + str(quickSpacePressCount))
+		
+		else:
+			quickSpacePressCount += 1
+			
+			print('Up: ' + str(quickSpacePressCount))
+			
+			if quickSpacePressCount == 3:
+				quickSpacePressCount = 0
+				powerUpCoolDown = Time.get_ticks_msec()
+				powerUp()
+
+#func start_teleport(location: Vector2):
+	#animated_sprite_2D.play("teleport_start", teleport_speed)
+	#await animated_sprite_2D.animation_finished
+	#global_position = location
+	#animated_sprite_2D.play("teleport_end", teleport_speed)
+	#await animated_sprite_2D.animation_finished
+	#attack()
+
+func attack():
+	animated_sprite_2D.play("slash", attack_speed)
+	await animated_sprite_2D.animation_finished
+	idle()
+
+func powerUp():
+	
+	print(global_position)
+	
+	var blast = power_up_blast.instantiate()
+	blast.global_position = global_position
+
+	get_parent().add_child(blast)
+	
+	scale *= 1.25
+	heroDamagePerAttack *= 1.25
+	
+	poweredup.emit()
+	
+	
+func idle():
+	animated_sprite_2D.play("idle", idle_speed)
+	
 var sword_swing_sound := preload("res://assets/sfx/sword-air-swing-2-437695.mp3")
 var taking_damage := false
 
 func _ready():
+	idle()
+
 	attack_area_2D.monitoring = false
 	attack_area_2D.visible = false
 
@@ -119,6 +187,7 @@ func take_damage():
 	attack_area_2D.visible = false
 
 	health -= 1
+	print("damaged: " + str(health))
 
 	if health <= 0:
 		state = State.DEAD
@@ -133,10 +202,11 @@ func take_damage():
 	await animated_sprite_2D.animation_finished
 	state = State.IDLE
 
+var heroDamagePerAttack := 1.0
 
 func _on_attack_area_2d_body_entered(body: Node2D) -> void:
 	if body.has_method("take_damage") and body is Enemy:
-		body.take_damage()
+		body.take_damage(heroDamagePerAttack)
 
 
 func _on_animated_sprite_2d_animation_finished() -> void:
