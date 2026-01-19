@@ -91,6 +91,9 @@ func powerUp():
 	attack_speed *= 1.1
 	attack_speed = min(attack_speed, 3)
 	
+	speed *= 1.2
+	speed = min(speed, 2000)
+	
 	playerLevel += 1
 	if playerLevel < len(playerLevels):
 		playerLevelValue = playerLevels[playerLevel]
