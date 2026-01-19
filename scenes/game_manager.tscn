@@ -646,6 +646,7 @@ tile_set = ExtResource("3_0rse5")
 z_index = 5
 position = Vector2(864.00006, 972)
 scale = Vector2(5, 5)
+health = 1
 
 [node name="Platforms" type="TileMapLayer" parent="GameMode"]
 use_parent_material = true
