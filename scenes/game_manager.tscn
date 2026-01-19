@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=4 uid="uid://rf2rog6xof1f"]
 
 [ext_resource type="Script" uid="uid://bwsscltki2nwo" path="res://scripts/game_manager.gd" id="1_hwd4i"]
-[ext_resource type="PackedScene" uid="uid://chm1xb5sunb63" path="res://scenes/counters_ui.tscn" id="2_glms7"]
+[ext_resource type="PackedScene" path="res://scenes/counters_ui.tscn" id="2_glms7"]
 [ext_resource type="TileSet" uid="uid://ktk5hjqhgr38" path="res://themes/tileset.tres" id="3_0rse5"]
 [ext_resource type="FontFile" uid="uid://dr12mxnc3lejr" path="res://assets/fonts/dungeonmode/font/dungeon-mode.ttf" id="3_30v7y"]
 [ext_resource type="PackedScene" uid="uid://d0gvbh7yu61tg" path="res://scenes/title.tscn" id="3_ternb"]
