@@ -50,7 +50,6 @@ func _input(event):
 		#print('difference: ' + str(difference))
 		
 		if difference > 1000:
-			#print('powering up!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 			powerUp()
 			
 		lastPowerUpTime = powerUpCoolDown
