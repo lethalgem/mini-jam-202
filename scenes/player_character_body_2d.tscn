@@ -1,7 +1,7 @@
 [gd_scene load_steps=82 format=3 uid="uid://b4o6qgy31lfq8"]
 
 [ext_resource type="Script" uid="uid://cdhlrynx1jcd1" path="res://scripts/player_character_body_2d.gd" id="1_p1kb5"]
-[ext_resource type="Script" uid="uid://b7fviwwanh0pa" path="res://scripts/sound_sample.gd" id="2_8aw4b"]
+[ext_resource type="Script" path="res://scripts/sound_sample.gd" id="2_8aw4b"]
 [ext_resource type="Texture2D" uid="uid://tb7paibar2se" path="res://assets/characters/Hero_26.png" id="2_tdmta"]
 [ext_resource type="AudioStream" uid="uid://btvhk5pq1iph8" path="res://assets/sfx/sword-air-swing-2-437695.mp3" id="3_tdmta"]
 [ext_resource type="AudioStream" uid="uid://c5dcr8tdx43h0" path="res://assets/sfx/sword-swing-sfx-407574.mp3" id="4_1hlru"]

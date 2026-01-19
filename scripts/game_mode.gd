@@ -62,7 +62,7 @@ func _on_spawn_timeout():
 	
 
 var floodCount := 0
-var floodAmount := 7
+var floodAmount := 5
 
 func floodSpawn():
 	

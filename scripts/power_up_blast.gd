@@ -10,7 +10,6 @@ var circle := CircleShape2D.new()
 
 func _on_body_entered(body):
 	if body.has_method("take_damage") and body is Enemy:
-		print('AAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHH')
 		body.take_damage(500)
 
 		
@@ -24,9 +23,6 @@ func _ready():
 	monitorable = true
 
 func _physics_process(delta):
-	
-	if get_overlapping_bodies().size() > 0:
-		print("OVERLAP DETECTED")
 		
 	circle.radius += expand_speed * delta
 	

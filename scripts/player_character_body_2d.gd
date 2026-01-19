@@ -32,42 +32,30 @@ var power_up_blast := preload("res://scenes/power_up_blast.tscn")
 
 var falling := false
 
-var quickSpacePressCount := 0
-var quickSpaceStartTime := Time.get_ticks_msec()
+var lastPowerUpTime := Time.get_ticks_msec()
 var powerUpCoolDown := Time.get_ticks_msec()
 
 
 func _input(event):
-	#if event.is_action_pressed("radial_blast"):
-		#powerUp()
+	if event.is_action_pressed("radial_blast"):
+		#print()
+		#print()
+		powerUpCoolDown = Time.get_ticks_msec()
+		#print('last time: ' + str(lastPowerUpTime))
 		
-	if event.is_action_pressed("attack"):
-		var nowTime := Time.get_ticks_msec()
-		var ellapsed = nowTime - quickSpaceStartTime
+		var difference = powerUpCoolDown - lastPowerUpTime
 		
-		if nowTime - powerUpCoolDown < 2000 or ellapsed > 500:
-			quickSpaceStartTime = nowTime
-			quickSpacePressCount = 1
-			
-			print('Reset: ' + str(quickSpacePressCount))
+		#print('difference: ' + str(difference))
 		
-		else:
-			quickSpacePressCount += 1
+		if difference > 1000:
+			#print('powering up!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+			powerUp()
 			
-			print('Up: ' + str(quickSpacePressCount))
-			
-			if quickSpacePressCount == 3:
-				quickSpacePressCount = 0
-				powerUpCoolDown = Time.get_ticks_msec()
-				powerUp()
+		lastPowerUpTime = powerUpCoolDown
+		#print('new time: ' + str(lastPowerUpTime))
+		#print()
+		#print()
 
-#func start_teleport(location: Vector2):
-	#animated_sprite_2D.play("teleport_start", teleport_speed)
-	#await animated_sprite_2D.animation_finished
-	#global_position = location
-	#animated_sprite_2D.play("teleport_end", teleport_speed)
-	#await animated_sprite_2D.animation_finished
-	#attack()
 
 func attack():
 	animated_sprite_2D.play("slash", attack_speed)
@@ -75,8 +63,6 @@ func attack():
 	idle()
 
 func powerUp():
-	
-	print(global_position)
 	
 	var blast = power_up_blast.instantiate()
 	blast.global_position = global_position
@@ -120,12 +106,15 @@ func die():
 	died.emit()
 
 func _physics_process(delta):
-	if state in [State.ATTACK, State.DAMAGED, State.DEAD]:
+	#if state in [State.ATTACK, State.DAMAGED, State.DEAD]:
+		#return
+		
+	if state in [State.ATTACK, State.DEAD]:
 		return
 	
 	var direction := 0
 	
-	if state in [State.WALK, State.IDLE]:
+	if state in [State.WALK, State.IDLE, State.DAMAGED]:
 		if Input.is_action_pressed("ui_left"):
 			direction -= 1
 			animated_sprite_2D.flip_h = true
@@ -137,7 +126,9 @@ func _physics_process(delta):
 			if attack_collision_shape_2D.position.x < 0:
 				attack_collision_shape_2D.position.x = -attack_collision_shape_2D.position.x
 		
-		if velocity.x == 0:
+		if state == State.DAMAGED:
+			state = State.DAMAGED
+		elif velocity.x == 0:
 			state = State.IDLE
 		else:
 			state = State.WALK
@@ -159,17 +150,20 @@ func update_animation():
 	match state:
 		State.ATTACK:
 			pass # attack animation already playing
-		State.DAMAGED:
-			pass # damage animation already playing
+		#State.DAMAGED:
+			#pass # damage animation already playing
 		State.WALK:
-			if animated_sprite_2D.animation != "walk":
+			if animated_sprite_2D.animation != "walk" and not state == State.DAMAGED:
 				animated_sprite_2D.play("walk", idle_speed)
 		State.IDLE:
-			if animated_sprite_2D.animation != "idle":
+			if animated_sprite_2D.animation != "idle" and not state == State.DAMAGED:
 				animated_sprite_2D.play("idle", idle_speed)
 
 func start_attack():
-	if state in [State.DEAD, State.DAMAGED]:
+	#if state in [State.DEAD, State.DAMAGED]:
+		#return
+		
+	if state in [State.DEAD]:
 		return
 
 	state = State.ATTACK
@@ -187,7 +181,6 @@ func take_damage():
 	attack_area_2D.visible = false
 
 	health -= 1
-	print("damaged: " + str(health))
 
 	if health <= 0:
 		state = State.DEAD
