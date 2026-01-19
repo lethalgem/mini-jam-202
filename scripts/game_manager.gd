@@ -2,6 +2,7 @@ class_name GameManager extends Node2D
 
 @export var counter_ui: CountersUI
 @export var game_mode: GameMode
+@export var background_music : Node
 
 @onready var main_menu = $CanvasLayer2
 @onready var option_menu = $CanvasLayer4
@@ -68,6 +69,7 @@ func _on_option_menu_back_button_pressed() -> void:
 
 func _on_title_start_but_pressed() -> void:
 	is_paused = false
+	background_music.crossfade_to()
 
 
 func _on_player_character_body_2d_died() -> void:
