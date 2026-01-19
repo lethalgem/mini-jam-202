@@ -15,11 +15,11 @@
 [ext_resource type="PackedScene" uid="uid://bg6ftfytfavnj" path="res://scenes/background_music.tscn" id="12_aonbx"]
 [ext_resource type="Material" uid="uid://c78wj7kh17mip" path="res://themes/vhs.tres" id="14_30v7y"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_lcbjr"]
+[sub_resource type="LabelSettings" id="LabelSettings_30v7y"]
 font = ExtResource("3_30v7y")
 font_size = 30
-font_color = Color(0.2410019, 0.6808812, 0.67262995, 1)
-shadow_color = Color(0.8352941, 0, 0.6862745, 0.7294118)
+font_color = Color(0.90588236, 0.1764706, 0.5882353, 0.9137255)
+shadow_color = Color(0.38431373, 0.0627451, 0.64705884, 0.7254902)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lcbjr"]
 texture = ExtResource("9_k4jhu")
@@ -566,7 +566,7 @@ offset_top = 64.0
 offset_right = 419.0
 offset_bottom = 91.0
 text = "PowerLv: human"
-label_settings = SubResource("LabelSettings_lcbjr")
+label_settings = SubResource("LabelSettings_30v7y")
 horizontal_alignment = 1
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
