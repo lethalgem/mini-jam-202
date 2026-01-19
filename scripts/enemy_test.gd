@@ -40,7 +40,7 @@ var state: State = State.IDLE
 func _ready() -> void:
 	attack_area_2D.monitoring = false
 	attack_area_2D.visible = false
-	health = scale.x
+	health = int(scale.x)
 	randomize()
 	pick_new_direction()
 
@@ -127,7 +127,7 @@ func take_damage(damage=1):
 	#health -= 1
 	health -= damage
 	
-	var scaleValue = max(health / 2, 1)
+	var scaleValue = max(int(health / 2), 1)
 	scale = Vector2(scaleValue, scaleValue)
 
 	if health <= 0:

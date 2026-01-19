@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://b4o6qgy31lfq8"]
+[gd_scene load_steps=86 format=3 uid="uid://b4o6qgy31lfq8"]
 
 [ext_resource type="Script" uid="uid://cdhlrynx1jcd1" path="res://scripts/player_character_body_2d.gd" id="1_p1kb5"]
 [ext_resource type="Script" path="res://scripts/sound_sample.gd" id="2_8aw4b"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://dv5jvexj7xk23" path="res://scenes/sound_player_2d.tscn" id="6_1hlru"]
 [ext_resource type="AudioStream" uid="uid://doiwlp0otodsa" path="res://assets/sfx/male_hurt7-48124.mp3" id="6_w7gao"]
 [ext_resource type="AudioStream" uid="uid://8r7vjwhrll7g" path="res://assets/sfx/explosion-8-bit-8-314694.mp3" id="7_w7gao"]
+[ext_resource type="AudioStream" uid="uid://daku7ndpf4uhi" path="res://assets/sfx/shotgun-firing-4-6746.mp3" id="8_qsaap"]
+[ext_resource type="AudioStream" uid="uid://doipi1gykhqur" path="res://assets/sfx/explosion-fx-425453.mp3" id="9_b4ktm"]
 
 [sub_resource type="Resource" id="Resource_jyvm6"]
 script = ExtResource("2_8aw4b")
@@ -36,6 +38,16 @@ metadata/_custom_type_script = "uid://b7fviwwanh0pa"
 [sub_resource type="Resource" id="Resource_f3x00"]
 script = ExtResource("2_8aw4b")
 stream = ExtResource("7_w7gao")
+metadata/_custom_type_script = "uid://b7fviwwanh0pa"
+
+[sub_resource type="Resource" id="Resource_3sjao"]
+script = ExtResource("2_8aw4b")
+stream = ExtResource("8_qsaap")
+metadata/_custom_type_script = "uid://b7fviwwanh0pa"
+
+[sub_resource type="Resource" id="Resource_s34o6"]
+script = ExtResource("2_8aw4b")
+stream = ExtResource("9_b4ktm")
 metadata/_custom_type_script = "uid://b7fviwwanh0pa"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8ut53"]
@@ -563,16 +575,18 @@ size = Vector2(20, 19)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p1kb5"]
 size = Vector2(12, 12)
 
-[node name="PlayerCharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("animated_sprite_2D", "attack_area_2D", "attack_collision_shape_2D", "sound_player_2d")]
+[node name="PlayerCharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("animated_sprite_2D", "attack_area_2D", "attack_collision_shape_2D", "sound_player_2d", "power_up_sound_player_2d")]
 script = ExtResource("1_p1kb5")
 animated_sprite_2D = NodePath("AnimatedSprite2D")
 attack_area_2D = NodePath("AttackArea2D")
 attack_collision_shape_2D = NodePath("AttackArea2D/AttackCollisionShape2D")
 sound_player_2d = NodePath("SoundPlayer2D")
+power_up_sound_player_2d = NodePath("PowerUpSoundPlayer2D")
 attack_speed = 1.5
 attack_sounds = Array[ExtResource("2_8aw4b")]([SubResource("Resource_jyvm6"), SubResource("Resource_kpds2")])
 damaged_sounds = Array[ExtResource("2_8aw4b")]([SubResource("Resource_qsaap"), SubResource("Resource_b4ktm")])
 death_sounds = Array[ExtResource("2_8aw4b")]([SubResource("Resource_f3x00")])
+power_up_sounds = Array[ExtResource("2_8aw4b")]([SubResource("Resource_3sjao"), SubResource("Resource_s34o6")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jieji")
@@ -590,6 +604,8 @@ position = Vector2(12, 7)
 shape = SubResource("RectangleShape2D_p1kb5")
 
 [node name="SoundPlayer2D" parent="." instance=ExtResource("6_1hlru")]
+
+[node name="PowerUpSoundPlayer2D" parent="." instance=ExtResource("6_1hlru")]
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="AttackArea2D" to="." method="_on_attack_area_2d_body_entered"]

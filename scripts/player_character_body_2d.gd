@@ -4,6 +4,7 @@ class_name PlayerCharacterBody2D extends CharacterBody2D
 @export var attack_area_2D: Area2D
 @export var attack_collision_shape_2D: CollisionShape2D
 @export var sound_player_2d: SoundPlayer2D
+@export var power_up_sound_player_2d: SoundPlayer2D
 
 @export var attack_speed: float = 1.0
 @export var idle_speed: float = 1.0
@@ -14,6 +15,7 @@ class_name PlayerCharacterBody2D extends CharacterBody2D
 @export var attack_sounds: Array[SoundSample]
 @export var damaged_sounds: Array[SoundSample]
 @export var death_sounds: Array[SoundSample]
+@export var power_up_sounds: Array[SoundSample]
 
 signal died
 signal poweredup
@@ -72,6 +74,7 @@ func powerUp():
 	scale *= 1.25
 	heroDamagePerAttack *= 1.25
 	
+	power_up_sound_player_2d.play_from_samples(power_up_sounds)
 	poweredup.emit()
 	
 	

@@ -71,7 +71,7 @@ func floodSpawn():
 		await get_tree().create_timer(0.05).timeout
 		
 	floodCount += 1
-	floodAmount *= 1.3
+	floodAmount = int(floodAmount * 1.3)
 	
 		
 func generateEnemy():
