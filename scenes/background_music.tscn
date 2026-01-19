@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://v0lw7wo8hiwu"]
+[gd_scene load_steps=7 format=3 uid="uid://bg6ftfytfavnj"]
 
 [ext_resource type="AudioStream" uid="uid://cy0sdr6v4vhwh" path="res://assets/music/game-background-359782.mp3" id="1_83psx"]
-[ext_resource type="Script" uid="uid://d1rsbef7lkvan" path="res://scripts/background_music.gd" id="1_u6r47"]
+[ext_resource type="Script" path="res://scripts/background_music.gd" id="1_u6r47"]
 [ext_resource type="AudioStream" uid="uid://dnlv8wmkr6cxx" path="res://assets/music/tekno-kick-loop-176-bpm-292894.mp3" id="2_u6r47"]
 
 [sub_resource type="Animation" id="Animation_xlhw1"]
