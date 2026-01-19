@@ -45,9 +45,8 @@ func _input(event):
 		var difference = powerUpCoolDown - lastPowerUpTime
 		
 		if difference > 1000:
+			lastPowerUpTime = powerUpCoolDown
 			powerUp()
-			
-		lastPowerUpTime = powerUpCoolDown
 
 
 func attack():
