@@ -1,7 +1,42 @@
-[gd_scene load_steps=70 format=3 uid="uid://b4o6qgy31lfq8"]
+[gd_scene load_steps=82 format=3 uid="uid://b4o6qgy31lfq8"]
 
 [ext_resource type="Script" uid="uid://cdhlrynx1jcd1" path="res://scripts/player_character_body_2d.gd" id="1_p1kb5"]
+[ext_resource type="Script" uid="uid://b7fviwwanh0pa" path="res://scripts/sound_sample.gd" id="2_8aw4b"]
 [ext_resource type="Texture2D" uid="uid://tb7paibar2se" path="res://assets/characters/Hero_26.png" id="2_tdmta"]
+[ext_resource type="AudioStream" uid="uid://btvhk5pq1iph8" path="res://assets/sfx/sword-air-swing-2-437695.mp3" id="3_tdmta"]
+[ext_resource type="AudioStream" uid="uid://c5dcr8tdx43h0" path="res://assets/sfx/sword-swing-sfx-407574.mp3" id="4_1hlru"]
+[ext_resource type="AudioStream" uid="uid://ty2aw1g3uamx" path="res://assets/sfx/male-hurt-sound-95206.mp3" id="5_kpds2"]
+[ext_resource type="PackedScene" uid="uid://dv5jvexj7xk23" path="res://scenes/sound_player_2d.tscn" id="6_1hlru"]
+[ext_resource type="AudioStream" uid="uid://doiwlp0otodsa" path="res://assets/sfx/male_hurt7-48124.mp3" id="6_w7gao"]
+[ext_resource type="AudioStream" uid="uid://8r7vjwhrll7g" path="res://assets/sfx/explosion-8-bit-8-314694.mp3" id="7_w7gao"]
+
+[sub_resource type="Resource" id="Resource_jyvm6"]
+script = ExtResource("2_8aw4b")
+stream = ExtResource("3_tdmta")
+start_time = 1.0
+metadata/_custom_type_script = "uid://b7fviwwanh0pa"
+
+[sub_resource type="Resource" id="Resource_kpds2"]
+script = ExtResource("2_8aw4b")
+stream = ExtResource("4_1hlru")
+metadata/_custom_type_script = "uid://b7fviwwanh0pa"
+
+[sub_resource type="Resource" id="Resource_qsaap"]
+script = ExtResource("2_8aw4b")
+stream = ExtResource("5_kpds2")
+start_time = 0.15
+metadata/_custom_type_script = "uid://b7fviwwanh0pa"
+
+[sub_resource type="Resource" id="Resource_b4ktm"]
+script = ExtResource("2_8aw4b")
+stream = ExtResource("6_w7gao")
+start_time = 0.09
+metadata/_custom_type_script = "uid://b7fviwwanh0pa"
+
+[sub_resource type="Resource" id="Resource_f3x00"]
+script = ExtResource("2_8aw4b")
+stream = ExtResource("7_w7gao")
+metadata/_custom_type_script = "uid://b7fviwwanh0pa"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8ut53"]
 atlas = ExtResource("2_tdmta")
@@ -528,12 +563,16 @@ size = Vector2(20, 19)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p1kb5"]
 size = Vector2(12, 12)
 
-[node name="PlayerCharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("animated_sprite_2D", "attack_area_2D", "attack_collision_shape_2D")]
+[node name="PlayerCharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("animated_sprite_2D", "attack_area_2D", "attack_collision_shape_2D", "sound_player_2d")]
 script = ExtResource("1_p1kb5")
 animated_sprite_2D = NodePath("AnimatedSprite2D")
 attack_area_2D = NodePath("AttackArea2D")
 attack_collision_shape_2D = NodePath("AttackArea2D/AttackCollisionShape2D")
+sound_player_2d = NodePath("SoundPlayer2D")
 attack_speed = 1.5
+attack_sounds = Array[ExtResource("2_8aw4b")]([SubResource("Resource_jyvm6"), SubResource("Resource_kpds2")])
+damaged_sounds = Array[ExtResource("2_8aw4b")]([SubResource("Resource_qsaap"), SubResource("Resource_b4ktm")])
+death_sounds = Array[ExtResource("2_8aw4b")]([SubResource("Resource_f3x00")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jieji")
@@ -549,6 +588,8 @@ collision_mask = 3
 [node name="AttackCollisionShape2D" type="CollisionShape2D" parent="AttackArea2D"]
 position = Vector2(12, 7)
 shape = SubResource("RectangleShape2D_p1kb5")
+
+[node name="SoundPlayer2D" parent="." instance=ExtResource("6_1hlru")]
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="AttackArea2D" to="." method="_on_attack_area_2d_body_entered"]

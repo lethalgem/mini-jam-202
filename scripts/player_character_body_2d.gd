@@ -3,6 +3,7 @@ class_name PlayerCharacterBody2D extends CharacterBody2D
 @export var animated_sprite_2D: AnimatedSprite2D
 @export var attack_area_2D: Area2D
 @export var attack_collision_shape_2D: CollisionShape2D
+@export var sound_player_2d: SoundPlayer2D
 
 @export var attack_speed: float = 1.0
 @export var idle_speed: float = 1.0
@@ -10,6 +11,9 @@ class_name PlayerCharacterBody2D extends CharacterBody2D
 @export var speed := 300.0
 @export var gravity := 800.0
 @export var health := 10
+@export var attack_sounds: Array[SoundSample]
+@export var damaged_sounds: Array[SoundSample]
+@export var death_sounds: Array[SoundSample]
 
 signal died
 signal poweredup
@@ -87,6 +91,8 @@ func powerUp():
 	
 func idle():
 	animated_sprite_2D.play("idle", idle_speed)
+	
+var sword_swing_sound := preload("res://assets/sfx/sword-air-swing-2-437695.mp3")
 var taking_damage := false
 
 func _ready():
@@ -96,9 +102,13 @@ func _ready():
 	attack_area_2D.visible = false
 
 func die():
+	sound_player_2d.play_from_samples(damaged_sounds, true, 0.1)
 	attack_area_2D.monitoring = false
 	animated_sprite_2D.play("death_explode", death_speed)
 	await animated_sprite_2D.animation_finished
+	var death_sound_player = SoundPlayer2D.new()
+	add_sibling(death_sound_player)
+	death_sound_player.play_from_samples(death_sounds)
 	
 	var death_bubble_controller: DeathBubbleController = death_bubble_controller_scene.instantiate()
 	add_sibling(death_bubble_controller)
@@ -164,9 +174,10 @@ func start_attack():
 
 	state = State.ATTACK
 	animated_sprite_2D.play("slash", attack_speed)
+	sound_player_2d.play_from_samples(attack_sounds)
 	attack_area_2D.monitoring = true
 	attack_area_2D.visible = true
-
+	
 
 func take_damage():
 	if state == State.DEAD:
@@ -186,6 +197,7 @@ func take_damage():
 	state = State.DAMAGED
 	animated_sprite_2D.play("damage")
 	animated_sprite_2D.frame = 0
+	sound_player_2d.play_from_samples(damaged_sounds, true, 0.1)
 
 	await animated_sprite_2D.animation_finished
 	state = State.IDLE

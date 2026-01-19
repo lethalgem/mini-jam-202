@@ -1,14 +1,19 @@
 class_name Enemy extends CharacterBody2D
 
+signal enemy_death
+
 @export var Collision:CollisionShape2D
 @export var Sprite:AnimatedSprite2D
 @export var attack_area_2D: Area2D
 @export var attack_collision_shape_2D: CollisionShape2D
+@export var sound_player: SoundPlayer2D
 @export var speed: float = 100.0
 @export var gravity := 800.0
 @export var falling := true
 @export var health := 3
 @export var should_move := true
+@export var damaged_sounds: Array[SoundSample]
+@export var death_sounds: Array[SoundSample]
 
 const ATTACK_START_FRAME := 3
 const ATTACK_END_FRAME := 5
@@ -126,8 +131,10 @@ func take_damage(damage=1):
 	scale = Vector2(scaleValue, scaleValue)
 
 	if health <= 0:
+		enemy_death.emit()
 		state = State.DEAD
 		Sprite.play("die")
+		sound_player.play_from_samples(death_sounds)
 		await Sprite.animation_finished
 		queue_free()
 		return
@@ -135,6 +142,7 @@ func take_damage(damage=1):
 	state = State.DAMAGED
 	Sprite.play("damaged")
 	Sprite.frame = 0
+	sound_player.play_from_samples(damaged_sounds)
 
 	await Sprite.animation_finished
 	state = State.IDLE

@@ -2,7 +2,9 @@ class_name TitleScreen extends Control
 
 @export var title_label: Label
 @export var gen_button: Button
-@export var button_sound : AudioStreamPlayer
+@export var button_sound: AudioStreamPlayer
+@export var game_over_sound_player: SoundPlayer2D
+@export var game_over_sounds: Array[SoundSample]
 
 signal start_but_pressed
 signal option_but_pressed
@@ -50,3 +52,7 @@ func _on_option_button_pressed() -> void:
 func _on_play_again_pressed() -> void:
 	play_again_pressed.emit()
 	button_sound.play()
+
+
+func _on_visibility_changed() -> void:
+	game_over_sound_player.play_from_samples(game_over_sounds)

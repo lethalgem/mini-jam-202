@@ -1,17 +1,33 @@
-[gd_scene load_steps=5 format=3 uid="uid://de1ktn3gt27h7"]
+[gd_scene load_steps=11 format=3 uid="uid://de1ktn3gt27h7"]
 
 [ext_resource type="Script" uid="uid://k0crdr3mxro4" path="res://scripts/title.gd" id="1_h8i2o"]
 [ext_resource type="LabelSettings" uid="uid://crpw4hmk1d3a0" path="res://themes/gameoversetting.tres" id="2_h8i2o"]
+[ext_resource type="Script" uid="uid://b7fviwwanh0pa" path="res://scripts/sound_sample.gd" id="2_ke020"]
 [ext_resource type="FontFile" uid="uid://dr12mxnc3lejr" path="res://assets/fonts/dungeonmode/font/dungeon-mode.ttf" id="3_qwp2v"]
+[ext_resource type="AudioStream" uid="uid://b3h07awy3mdyh" path="res://assets/sfx/game-over-kid-voice-clip-352738.mp3" id="3_r8puk"]
 [ext_resource type="AudioStream" uid="uid://c7ecwpu2562j2" path="res://assets/sfx/arcade-ui-14-229514.mp3" id="4_3gj0k"]
+[ext_resource type="AudioStream" uid="uid://c4v16lyoaskd8" path="res://assets/sfx/game-over-deep-male-voice-clip-352695.mp3" id="4_hvwf0"]
+[ext_resource type="PackedScene" uid="uid://dv5jvexj7xk23" path="res://scenes/sound_player_2d.tscn" id="5_mt7yr"]
 
-[node name="GameOver" type="Control" node_paths=PackedStringArray("title_label", "gen_button", "button_sound")]
+[sub_resource type="Resource" id="Resource_taj7i"]
+script = ExtResource("2_ke020")
+stream = ExtResource("3_r8puk")
+metadata/_custom_type_script = "uid://b7fviwwanh0pa"
+
+[sub_resource type="Resource" id="Resource_v8l1s"]
+script = ExtResource("2_ke020")
+stream = ExtResource("4_hvwf0")
+metadata/_custom_type_script = "uid://b7fviwwanh0pa"
+
+[node name="GameOver" type="Control" node_paths=PackedStringArray("title_label", "gen_button", "button_sound", "game_over_sound_player")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_h8i2o")
 title_label = NodePath("VBoxContainer/GameOver")
 gen_button = NodePath("VBoxContainer/HBoxContainer/PlayAgain")
 button_sound = NodePath("ArcadeUi14229514")
+game_over_sound_player = NodePath("SoundPlayer2D")
+game_over_sounds = Array[ExtResource("2_ke020")]([SubResource("Resource_taj7i"), SubResource("Resource_v8l1s")])
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -58,5 +74,8 @@ flat = true
 stream = ExtResource("4_3gj0k")
 bus = &"SFX"
 
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/PlayAgain" to="." method="_on_play_again_pressed"]
+[node name="SoundPlayer2D" parent="." instance=ExtResource("5_mt7yr")]
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/PlayAgain" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/PlayAgain" to="." method="_on_play_again_pressed"]

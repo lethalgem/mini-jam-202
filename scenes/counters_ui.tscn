@@ -35,6 +35,6 @@ horizontal_alignment = 1
 
 [node name="KillsLabel" type="Label" parent="HBoxContainer"]
 layout_mode = 2
-text = "Kills"
+text = "Kills 0"
 label_settings = ExtResource("1_50mn7")
 horizontal_alignment = 1
