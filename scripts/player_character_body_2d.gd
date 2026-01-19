@@ -54,9 +54,6 @@ func _input(event):
 			powerUp()
 			
 		lastPowerUpTime = powerUpCoolDown
-		#print('new time: ' + str(lastPowerUpTime))
-		#print()
-		#print()
 
 
 func attack():
