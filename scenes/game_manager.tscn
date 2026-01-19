@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://rf2rog6xof1f"]
+[gd_scene load_steps=17 format=4 uid="uid://rf2rog6xof1f"]
 
 [ext_resource type="Script" uid="uid://bwsscltki2nwo" path="res://scripts/game_manager.gd" id="1_hwd4i"]
 [ext_resource type="PackedScene" path="res://scenes/counters_ui.tscn" id="2_glms7"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://b4o6qgy31lfq8" path="res://scenes/player_character_body_2d.tscn" id="8_jdad8"]
 [ext_resource type="Texture2D" uid="uid://dg11xy0rj80t" path="res://assets/tiles/Tileset.png" id="9_k4jhu"]
 [ext_resource type="PackedScene" uid="uid://bg6ftfytfavnj" path="res://scenes/background_music.tscn" id="12_aonbx"]
+[ext_resource type="Material" uid="uid://c78wj7kh17mip" path="res://themes/vhs.tres" id="14_30v7y"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lcbjr"]
 texture = ExtResource("9_k4jhu")
@@ -654,6 +655,14 @@ tile_set = SubResource("TileSet_0rse5")
 rendering_quadrant_size = 24
 
 [node name="BackgroundMusic" parent="." instance=ExtResource("12_aonbx")]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = ExtResource("14_30v7y")
+offset_left = -128.0
+offset_top = -135.0
+offset_right = 2072.0
+offset_bottom = 1244.0
+color = Color(1, 1, 1, 0)
 
 [connection signal="option_but_pressed" from="CanvasLayer2/Title" to="." method="_on_title_option_but_pressed"]
 [connection signal="start_but_pressed" from="CanvasLayer2/Title" to="." method="_on_title_start_but_pressed"]
