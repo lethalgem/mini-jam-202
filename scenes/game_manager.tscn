@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d0gvbh7yu61tg" path="res://scenes/title.tscn" id="3_ternb"]
 [ext_resource type="PackedScene" uid="uid://cffpey8u54sob" path="res://scenes/option_menu.tscn" id="5_eaq8r"]
 [ext_resource type="PackedScene" uid="uid://de1ktn3gt27h7" path="res://scenes/gameover.tscn" id="5_q8mjp"]
-[ext_resource type="PackedScene" path="res://scenes/controls.tscn" id="7_aonbx"]
+[ext_resource type="PackedScene" uid="uid://d0gu2wp34sl3q" path="res://scenes/controls.tscn" id="7_aonbx"]
 [ext_resource type="PackedScene" uid="uid://ce0w7tddcjrxu" path="res://scenes/world_test.tscn" id="7_q8mjp"]
 [ext_resource type="Script" uid="uid://cubyyxwh2c5xk" path="res://scripts/game_mode.gd" id="8_frtjd"]
 [ext_resource type="PackedScene" uid="uid://b4o6qgy31lfq8" path="res://scenes/player_character_body_2d.tscn" id="8_jdad8"]
