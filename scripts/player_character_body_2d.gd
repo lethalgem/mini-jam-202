@@ -40,17 +40,45 @@ var lastPowerUpTime := Time.get_ticks_msec()
 var powerUpCoolDown := Time.get_ticks_msec()
 
 
+var playerLevels = [
+	"human",
+	"soldier",
+	"warrior",
+	"beast",
+	"mutant",
+	"apex",
+	"juggernaut",
+	"colossus",
+	"titan",
+	"demigod",
+	"god",
+	"elder god",
+	"primordial",
+	"celestial",
+	"astral tyrant",
+	"starforged",
+	"voidborn",
+	"cosmic horror",
+	"reality warper",
+	"paradox",
+	"extinction event",
+	"final form",
+    "@*@^!$*%#&@^!$#%"
+]
+var playerLevelValue = 'human'
+var playerLevel = 0
+
+
+
 func _input(event):
 	if event.is_action_pressed("radial_blast"):
 		powerUpCoolDown = Time.get_ticks_msec()
 		
 		var difference = powerUpCoolDown - lastPowerUpTime
 		
-		
 		if difference > 1000:
+			lastPowerUpTime = powerUpCoolDown
 			powerUp()
-			
-		lastPowerUpTime = powerUpCoolDown
 
 
 func attack():
@@ -59,6 +87,16 @@ func attack():
 	idle()
 
 func powerUp():
+	
+	attack_speed *= .95
+	
+	playerLevel += 1
+	if playerLevel < len(playerLevels):
+		playerLevelValue = playerLevels[playerLevel]
+	else:
+		playerLevelValue = playerLevels[len(playerLevels) - 1]
+	
+	print(playerLevelValue)
 	
 	var blast = power_up_blast.instantiate()
 	blast.global_position = global_position
