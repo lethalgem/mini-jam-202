@@ -1,13 +1,13 @@
 [gd_scene load_steps=16 format=4 uid="uid://rf2rog6xof1f"]
 
 [ext_resource type="Script" uid="uid://bwsscltki2nwo" path="res://scripts/game_manager.gd" id="1_hwd4i"]
-[ext_resource type="PackedScene" uid="uid://chm1xb5sunb63" path="res://scenes/counters_ui.tscn" id="2_glms7"]
+[ext_resource type="PackedScene" path="res://scenes/counters_ui.tscn" id="2_glms7"]
 [ext_resource type="TileSet" uid="uid://ktk5hjqhgr38" path="res://themes/tileset.tres" id="3_0rse5"]
 [ext_resource type="FontFile" uid="uid://dr12mxnc3lejr" path="res://assets/fonts/dungeonmode/font/dungeon-mode.ttf" id="3_30v7y"]
 [ext_resource type="PackedScene" uid="uid://d0gvbh7yu61tg" path="res://scenes/title.tscn" id="3_ternb"]
 [ext_resource type="PackedScene" uid="uid://cffpey8u54sob" path="res://scenes/option_menu.tscn" id="5_eaq8r"]
 [ext_resource type="PackedScene" uid="uid://de1ktn3gt27h7" path="res://scenes/gameover.tscn" id="5_q8mjp"]
-[ext_resource type="PackedScene" path="res://scenes/controls.tscn" id="7_aonbx"]
+[ext_resource type="PackedScene" uid="uid://cg6ktuqjt1bn6" path="res://scenes/controls.tscn" id="7_aonbx"]
 [ext_resource type="PackedScene" uid="uid://ce0w7tddcjrxu" path="res://scenes/world_test.tscn" id="7_q8mjp"]
 [ext_resource type="Script" uid="uid://cubyyxwh2c5xk" path="res://scripts/game_mode.gd" id="8_frtjd"]
 [ext_resource type="PackedScene" uid="uid://b4o6qgy31lfq8" path="res://scenes/player_character_body_2d.tscn" id="8_jdad8"]
@@ -646,7 +646,6 @@ tile_set = ExtResource("3_0rse5")
 z_index = 5
 position = Vector2(864.00006, 972)
 scale = Vector2(5, 5)
-health = 1
 
 [node name="Platforms" type="TileMapLayer" parent="GameMode"]
 use_parent_material = true
