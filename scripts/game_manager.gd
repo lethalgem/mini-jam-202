@@ -4,6 +4,7 @@ class_name GameManager extends Node2D
 @export var game_mode: GameMode
 @export var background_music : Node
 @export var health_bar : ProgressBar
+@export var power_level_label : Label
 
 @onready var main_menu = $CanvasLayer2
 @onready var option_menu = $CanvasLayer4
@@ -30,6 +31,7 @@ var is_paused := true:
 			main_menu.hide()
 			world_test.clear_and_disable()
 			counter_ui_layer.show()
+			background_music.crossfade_to()
 		is_paused = should_pause
 
 
@@ -39,7 +41,7 @@ func _ready() -> void:
 	
 	
 func _physics_process(delta: float):
-	if not is_paused:
+	if not is_paused and not game_over_menu.visible:
 		time_since_time_update += delta
 	if time_since_time_update >= 1.0:
 		total_time_survived_sec += 1.0
@@ -79,7 +81,6 @@ func _on_option_menu_back_button_pressed() -> void:
 
 func _on_title_start_but_pressed() -> void:
 	is_paused = false
-	background_music.crossfade_to()
 
 
 func _on_player_character_body_2d_died() -> void:
@@ -99,3 +100,7 @@ func _on_game_mode_enemy_died() -> void:
 
 func _on_player_character_body_2d_damaged() -> void:
 	update_health_bar(true)
+
+
+func _on_player_character_body_2d_poweredup(power_level: Variant) -> void:
+	power_level_label.text = "PowerLevel: " + power_level

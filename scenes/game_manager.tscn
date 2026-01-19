@@ -13,6 +13,13 @@
 [ext_resource type="PackedScene" uid="uid://b4o6qgy31lfq8" path="res://scenes/player_character_body_2d.tscn" id="8_jdad8"]
 [ext_resource type="Texture2D" uid="uid://dg11xy0rj80t" path="res://assets/tiles/Tileset.png" id="9_k4jhu"]
 [ext_resource type="PackedScene" uid="uid://bg6ftfytfavnj" path="res://scenes/background_music.tscn" id="12_aonbx"]
+[ext_resource type="Material" uid="uid://c78wj7kh17mip" path="res://themes/vhs.tres" id="14_30v7y"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_lcbjr"]
+font = ExtResource("3_30v7y")
+font_size = 30
+font_color = Color(0.2410019, 0.6808812, 0.67262995, 1)
+shadow_color = Color(0.8352941, 0, 0.6862745, 0.7294118)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lcbjr"]
 texture = ExtResource("9_k4jhu")
@@ -524,12 +531,13 @@ physics_layer_1/collision_layer = 4
 physics_layer_1/collision_mask = 6
 sources/0 = SubResource("TileSetAtlasSource_lcbjr")
 
-[node name="GameManager" type="Node2D" node_paths=PackedStringArray("counter_ui", "game_mode", "background_music", "health_bar")]
+[node name="GameManager" type="Node2D" node_paths=PackedStringArray("counter_ui", "game_mode", "background_music", "health_bar", "power_level_label")]
 script = ExtResource("1_hwd4i")
 counter_ui = NodePath("CanvasLayer/CountersUI")
 game_mode = NodePath("GameMode")
 background_music = NodePath("BackgroundMusic")
 health_bar = NodePath("CanvasLayer/ProgressBar")
+power_level_label = NodePath("CanvasLayer/PowerLevel")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false
@@ -545,14 +553,21 @@ offset_bottom = 49.0
 grow_horizontal = 0
 
 [node name="ProgressBar" type="ProgressBar" parent="CanvasLayer"]
-offset_left = 49.0
-offset_top = 27.0
-offset_right = 507.0
-offset_bottom = 77.0
+offset_right = 450.0
+offset_bottom = 46.0
 theme_override_fonts/font = ExtResource("3_30v7y")
 theme_override_font_sizes/font_size = 30
 max_value = 10.0
 value = 10.0
+
+[node name="PowerLevel" type="Label" parent="CanvasLayer"]
+offset_left = 25.0
+offset_top = 64.0
+offset_right = 419.0
+offset_bottom = 91.0
+text = "PowerLv: human"
+label_settings = SubResource("LabelSettings_lcbjr")
+horizontal_alignment = 1
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 visible = false
@@ -655,6 +670,14 @@ rendering_quadrant_size = 24
 
 [node name="BackgroundMusic" parent="." instance=ExtResource("12_aonbx")]
 
+[node name="ColorRect" type="ColorRect" parent="."]
+material = ExtResource("14_30v7y")
+offset_left = -128.0
+offset_top = -135.0
+offset_right = 2072.0
+offset_bottom = 1244.0
+color = Color(1, 1, 1, 0)
+
 [connection signal="option_but_pressed" from="CanvasLayer2/Title" to="." method="_on_title_option_but_pressed"]
 [connection signal="start_but_pressed" from="CanvasLayer2/Title" to="." method="_on_title_start_but_pressed"]
 [connection signal="play_again_pressed" from="CanvasLayer3/GameOver" to="." method="_on_game_over_play_again_pressed"]
@@ -662,4 +685,5 @@ rendering_quadrant_size = 24
 [connection signal="enemy_died" from="GameMode" to="." method="_on_game_mode_enemy_died"]
 [connection signal="damaged" from="GameMode/PlayerCharacterBody2D" to="." method="_on_player_character_body_2d_damaged"]
 [connection signal="died" from="GameMode/PlayerCharacterBody2D" to="." method="_on_player_character_body_2d_died"]
+[connection signal="poweredup" from="GameMode/PlayerCharacterBody2D" to="." method="_on_player_character_body_2d_poweredup"]
 [connection signal="poweredup" from="GameMode/PlayerCharacterBody2D" to="GameMode" method="_on_player_character_body_2d_poweredup"]
