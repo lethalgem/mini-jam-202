@@ -10,6 +10,7 @@ class_name GameManager extends Node2D
 @onready var option_menu_button = $CanvasLayer4/OptionMenu/VBoxContainer/BackButton
 @onready var world_test := $CanvasLayer2/WorldTest as WorldTest
 
+var death_counter: int = 0
 var time_since_time_update: float = 0
 var total_time_survived_sec: float = 0
 var is_paused := true:
@@ -75,4 +76,10 @@ func _on_player_character_body_2d_died() -> void:
 
 
 func _on_game_over_play_again_pressed() -> void:
+	await get_tree().create_timer(0.5).timeout
 	get_tree().reload_current_scene()
+
+
+func _on_game_mode_enemy_died() -> void:
+	death_counter += 1
+	counter_ui.kill_counter_label.text ="Kill " + str(death_counter)

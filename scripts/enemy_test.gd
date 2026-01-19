@@ -1,5 +1,7 @@
 class_name Enemy extends CharacterBody2D
 
+signal enemy_death
+
 @export var Collision:CollisionShape2D
 @export var Sprite:AnimatedSprite2D
 @export var attack_area_2D: Area2D
@@ -124,6 +126,7 @@ func take_damage():
 	health -= 1
 
 	if health <= 0:
+		enemy_death.emit()
 		state = State.DEAD
 		Sprite.play("die")
 		sound_player.play_from_samples(death_sounds)

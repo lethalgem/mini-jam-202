@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=4 uid="uid://ce0w7tddcjrxu"]
 
 [ext_resource type="Script" uid="uid://cd7x1mrjp8l6n" path="res://scripts/world_test.gd" id="1_1moov"]
-[ext_resource type="TileSet" uid="uid://crar72wnf6788" path="res://themes/tileset.tres" id="2_puv4i"]
+[ext_resource type="TileSet" uid="uid://ktk5hjqhgr38" path="res://themes/tileset.tres" id="2_puv4i"]
 
 [node name="WorldTest" type="Node2D"]
 script = ExtResource("1_1moov")
