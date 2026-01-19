@@ -116,6 +116,3 @@ func randf_normal(mean := 1.0, std_dev := 0.15) -> float:
 
 func _on_player_character_body_2d_poweredup(power_level: Variant) -> void:
 	floodSpawn()
-	
-#func _on_player_character_body_2d_poweredup() -> void:
-	#floodSpawn()
