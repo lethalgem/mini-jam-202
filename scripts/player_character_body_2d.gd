@@ -40,23 +40,14 @@ var powerUpCoolDown := Time.get_ticks_msec()
 
 func _input(event):
 	if event.is_action_pressed("radial_blast"):
-		#print()
-		#print()
 		powerUpCoolDown = Time.get_ticks_msec()
-		#print('last time: ' + str(lastPowerUpTime))
 		
 		var difference = powerUpCoolDown - lastPowerUpTime
 		
-		#print('difference: ' + str(difference))
-		
 		if difference > 1000:
-			#print('powering up!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 			powerUp()
 			
 		lastPowerUpTime = powerUpCoolDown
-		#print('new time: ' + str(lastPowerUpTime))
-		#print()
-		#print()
 
 
 func attack():
@@ -109,8 +100,6 @@ func die():
 	died.emit()
 
 func _physics_process(delta):
-	#if state in [State.ATTACK, State.DAMAGED, State.DEAD]:
-		#return
 		
 	if state in [State.ATTACK, State.DEAD]:
 		return
@@ -163,8 +152,6 @@ func update_animation():
 				animated_sprite_2D.play("idle", idle_speed)
 
 func start_attack():
-	#if state in [State.DEAD, State.DAMAGED]:
-		#return
 		
 	if state in [State.DEAD]:
 		return
