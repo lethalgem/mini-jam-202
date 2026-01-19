@@ -6,8 +6,8 @@ signal enemy_died
 
 @onready var enemy_scene = preload("res://scenes/enemy_test.tscn")
 
-@export var min_spawn := 0.5
-@export var max_spawn := 1.0
+@export var min_spawn := 0.3
+@export var max_spawn := .7
 
 var spawn_timer: Timer
 
@@ -62,7 +62,7 @@ func _on_spawn_timeout():
 	
 
 var floodCount := 0
-var floodAmount := 5
+var floodAmount := 10
 var maxEnemyScale := 5.0
 var originalEnemyScale := 5.0
 
@@ -75,7 +75,7 @@ func floodSpawn():
 	floodCount += 1
 	floodAmount = int(floodAmount * 1.3)
 	
-	maxEnemyScale *= 1.25
+	maxEnemyScale *= 1.15
 	
 		
 func generateEnemy():

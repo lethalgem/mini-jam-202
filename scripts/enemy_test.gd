@@ -128,6 +128,7 @@ func take_damage(damage=1):
 	health -= damage
 	
 	var scaleValue = max(int(health / 2), 1)
+	scaleValue = max(scaleValue, 2)
 	scale = Vector2(scaleValue, scaleValue)
 
 	if health <= 0:

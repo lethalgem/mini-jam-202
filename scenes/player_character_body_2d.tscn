@@ -1,7 +1,7 @@
 [gd_scene load_steps=86 format=3 uid="uid://b4o6qgy31lfq8"]
 
 [ext_resource type="Script" uid="uid://cdhlrynx1jcd1" path="res://scripts/player_character_body_2d.gd" id="1_p1kb5"]
-[ext_resource type="Script" uid="uid://b7fviwwanh0pa" path="res://scripts/sound_sample.gd" id="2_8aw4b"]
+[ext_resource type="Script" path="res://scripts/sound_sample.gd" id="2_8aw4b"]
 [ext_resource type="Texture2D" uid="uid://tb7paibar2se" path="res://assets/characters/Hero_26.png" id="2_tdmta"]
 [ext_resource type="AudioStream" uid="uid://btvhk5pq1iph8" path="res://assets/sfx/sword-air-swing-2-437695.mp3" id="3_tdmta"]
 [ext_resource type="AudioStream" uid="uid://c5dcr8tdx43h0" path="res://assets/sfx/sword-swing-sfx-407574.mp3" id="4_1hlru"]
@@ -574,7 +574,7 @@ animations = [{
 size = Vector2(20, 19)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p1kb5"]
-size = Vector2(12, 12)
+size = Vector2(27, 20)
 
 [node name="PlayerCharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("animated_sprite_2D", "attack_area_2D", "attack_collision_shape_2D", "sound_player_2d", "power_up_sound_player_2d")]
 script = ExtResource("1_p1kb5")
@@ -601,7 +601,7 @@ shape = SubResource("RectangleShape2D_upai5")
 collision_mask = 3
 
 [node name="AttackCollisionShape2D" type="CollisionShape2D" parent="AttackArea2D"]
-position = Vector2(12, 7)
+position = Vector2(19.5, 7)
 shape = SubResource("RectangleShape2D_p1kb5")
 
 [node name="SoundPlayer2D" parent="." instance=ExtResource("6_1hlru")]

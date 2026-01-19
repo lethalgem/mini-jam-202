@@ -58,6 +58,8 @@ func attack():
 
 func powerUp():
 	
+	attack_speed *= .95
+	
 	var blast = power_up_blast.instantiate()
 	blast.global_position = global_position
 
