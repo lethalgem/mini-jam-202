@@ -66,21 +66,25 @@ animations = [{
 physics_material_override = SubResource("PhysicsMaterial_fdpfy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
-position = Vector2(2709, 1296)
+position = Vector2(524.5, 593.5)
 shape = SubResource("RectangleShape2D_6p80c")
 
 [node name="ColorRect" type="ColorRect" parent="Ground"]
-offset_left = 2194.0
-offset_top = 1260.0
-offset_right = 3216.0
-offset_bottom = 1325.0
+offset_left = 13.0
+offset_top = 561.0
+offset_right = 1035.0
+offset_bottom = 626.0
 
 [node name="PlayerCharacterBody2D" parent="." instance=ExtResource("1_a8v3n")]
 position = Vector2(369, 444)
 scale = Vector2(3, 3)
+idle_speed = 1.0
+death_speed = 1.0
+speed = 300.0
+health = 10
 
 [node name="DummyCharacterBody2D" type="CharacterBody2D" parent="."]
-position = Vector2(2074, 854)
+position = Vector2(508, 446)
 scale = Vector2(3, 3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DummyCharacterBody2D"]
@@ -88,7 +92,6 @@ position = Vector2(0, 7)
 shape = SubResource("CircleShape2D_6p80c")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="DummyCharacterBody2D"]
-position = Vector2(3.333374, 11.666672)
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_ad58j")
 frame_progress = 0.6328955

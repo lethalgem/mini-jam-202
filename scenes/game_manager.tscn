@@ -1,10 +1,10 @@
 [gd_scene load_steps=16 format=4 uid="uid://rf2rog6xof1f"]
 
 [ext_resource type="Script" uid="uid://bwsscltki2nwo" path="res://scripts/game_manager.gd" id="1_hwd4i"]
-[ext_resource type="PackedScene" uid="uid://chm1xb5sunb63" path="res://scenes/counters_ui.tscn" id="2_glms7"]
+[ext_resource type="PackedScene" path="res://scenes/counters_ui.tscn" id="2_glms7"]
 [ext_resource type="TileSet" uid="uid://ktk5hjqhgr38" path="res://themes/tileset.tres" id="3_0rse5"]
 [ext_resource type="PackedScene" uid="uid://d0gvbh7yu61tg" path="res://scenes/title.tscn" id="3_ternb"]
-[ext_resource type="PackedScene" uid="uid://bvl4xuub5eml" path="res://scenes/option_menu.tscn" id="5_eaq8r"]
+[ext_resource type="PackedScene" uid="uid://cffpey8u54sob" path="res://scenes/option_menu.tscn" id="5_eaq8r"]
 [ext_resource type="PackedScene" uid="uid://de1ktn3gt27h7" path="res://scenes/gameover.tscn" id="5_q8mjp"]
 [ext_resource type="PackedScene" uid="uid://bh5nnwo23utsq" path="res://scenes/controls.tscn" id="7_aonbx"]
 [ext_resource type="PackedScene" uid="uid://ce0w7tddcjrxu" path="res://scenes/world_test.tscn" id="7_q8mjp"]
@@ -587,7 +587,6 @@ tile_set = ExtResource("3_0rse5")
 [node name="PlayerCharacterBody2D" parent="GameMode" instance=ExtResource("8_jdad8")]
 position = Vector2(864.00006, 972)
 scale = Vector2(5, 5)
-health = 1
 
 [node name="Platforms" type="TileMapLayer" parent="GameMode"]
 use_parent_material = true
@@ -606,3 +605,4 @@ stream = ExtResource("9_lcbjr")
 [connection signal="back_button_pressed" from="CanvasLayer4/OptionMenu" to="." method="_on_option_menu_back_button_pressed"]
 [connection signal="enemy_died" from="GameMode" to="." method="_on_game_mode_enemy_died"]
 [connection signal="died" from="GameMode/PlayerCharacterBody2D" to="." method="_on_player_character_body_2d_died"]
+[connection signal="poweredup" from="GameMode/PlayerCharacterBody2D" to="GameMode" method="_on_player_character_body_2d_poweredup"]
