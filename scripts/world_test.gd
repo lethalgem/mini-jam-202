@@ -51,7 +51,6 @@ func clear_and_disable():
 			child.queue_free()
 	for child in get_children():
 		if child is TileMapLayer:
-			print(child)
 			child.collision_enabled = false
 
 func reenable():

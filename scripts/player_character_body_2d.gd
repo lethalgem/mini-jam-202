@@ -4,6 +4,7 @@ class_name PlayerCharacterBody2D extends CharacterBody2D
 @export var attack_area_2D: Area2D
 @export var attack_collision_shape_2D: CollisionShape2D
 @export var sound_player_2d: SoundPlayer2D
+@export var power_up_sound_player_2d: SoundPlayer2D
 
 @export var attack_speed: float = 1.0
 @export var idle_speed: float = 1.0
@@ -14,6 +15,7 @@ class_name PlayerCharacterBody2D extends CharacterBody2D
 @export var attack_sounds: Array[SoundSample]
 @export var damaged_sounds: Array[SoundSample]
 @export var death_sounds: Array[SoundSample]
+@export var power_up_sounds: Array[SoundSample]
 
 signal died
 signal poweredup
@@ -48,13 +50,9 @@ func _input(event):
 		if nowTime - powerUpCoolDown < 2000 or ellapsed > 500:
 			quickSpaceStartTime = nowTime
 			quickSpacePressCount = 1
-			
-			print('Reset: ' + str(quickSpacePressCount))
 		
 		else:
 			quickSpacePressCount += 1
-			
-			print('Up: ' + str(quickSpacePressCount))
 			
 			if quickSpacePressCount == 3:
 				quickSpacePressCount = 0
@@ -75,9 +73,6 @@ func attack():
 	idle()
 
 func powerUp():
-	
-	print(global_position)
-	
 	var blast = power_up_blast.instantiate()
 	blast.global_position = global_position
 
@@ -86,6 +81,7 @@ func powerUp():
 	scale *= 1.25
 	heroDamagePerAttack *= 1.25
 	
+	power_up_sound_player_2d.play_from_samples(power_up_sounds)
 	poweredup.emit()
 	
 	
@@ -187,7 +183,6 @@ func take_damage():
 	attack_area_2D.visible = false
 
 	health -= 1
-	print("damaged: " + str(health))
 
 	if health <= 0:
 		state = State.DEAD
