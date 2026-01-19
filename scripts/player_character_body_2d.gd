@@ -19,8 +19,8 @@ class_name PlayerCharacterBody2D extends CharacterBody2D
 @export var power_up_sounds: Array[SoundSample]
 
 signal died
-signal poweredup
-signal damaged(damaged_value)
+signal poweredup(power_level)
+signal damaged
 
 enum State {
 	IDLE,
@@ -96,8 +96,6 @@ func powerUp():
 	else:
 		playerLevelValue = playerLevels[len(playerLevels) - 1]
 	
-	print(playerLevelValue)
-	
 	var blast = power_up_blast.instantiate()
 	blast.global_position = global_position
 
@@ -107,7 +105,7 @@ func powerUp():
 	heroDamagePerAttack *= 1.25
 	
 	power_up_sound_player_2d.play_from_samples(power_up_sounds)
-	poweredup.emit()
+	poweredup.emit(playerLevelValue)
 	
 	
 func idle():
