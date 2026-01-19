@@ -68,6 +68,8 @@ var originalEnemyScale := 5.0
 
 func floodSpawn():
 	
+	print('flooding!!!!!')
+	
 	for i in range(floodAmount):
 		generateEnemy()
 		await get_tree().create_timer(0.05).timeout
@@ -76,6 +78,9 @@ func floodSpawn():
 	floodAmount = int(floodAmount * 1.3)
 	
 	maxEnemyScale *= 1.15
+	
+	min_spawn *= .9
+	max_spawn *= .9
 	
 		
 func generateEnemy():
@@ -109,5 +114,5 @@ func randf_normal(mean := 1.0, std_dev := 0.15) -> float:
 	return mean + z0 * std_dev
 
 
-func _on_player_character_body_2d_poweredup() -> void:
+func _on_player_character_body_2d_poweredup(power_level: Variant) -> void:
 	floodSpawn()

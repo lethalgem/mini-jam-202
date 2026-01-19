@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cg6ktuqjt1bn6"]
+[gd_scene load_steps=4 format=3 uid="uid://d0gu2wp34sl3q"]
 
 [ext_resource type="FontFile" uid="uid://dr12mxnc3lejr" path="res://assets/fonts/dungeonmode/font/dungeon-mode.ttf" id="1_i2gav"]
 
@@ -42,10 +42,10 @@ horizontal_alignment = 1
 
 [node name="Details" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "A: Move Left
-D: Move Right
+text = "A or Left: Move Left
+D or Right: Move Right
 Space: Attack
-Shift: PowerUp
+S or Down: PowerUp
 ESC: Options Menu"
 label_settings = SubResource("LabelSettings_cywyo")
 horizontal_alignment = 1

@@ -101,6 +101,5 @@ func _on_game_mode_enemy_died() -> void:
 func _on_player_character_body_2d_damaged() -> void:
 	update_health_bar(true)
 
-
 func _on_player_character_body_2d_poweredup(power_level: Variant) -> void:
 	power_level_label.text = "PowerLevel: " + power_level
