@@ -19,6 +19,7 @@ class_name PlayerCharacterBody2D extends CharacterBody2D
 
 signal died
 signal poweredup
+signal damaged(damaged_value)
 
 enum State {
 	IDLE,
@@ -172,6 +173,7 @@ func take_damage():
 	attack_area_2D.visible = false
 
 	health -= 1
+	damaged.emit()
 
 	if health <= 0:
 		state = State.DEAD

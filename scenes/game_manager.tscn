@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=4 uid="uid://rf2rog6xof1f"]
+[gd_scene load_steps=17 format=4 uid="uid://rf2rog6xof1f"]
 
 [ext_resource type="Script" uid="uid://bwsscltki2nwo" path="res://scripts/game_manager.gd" id="1_hwd4i"]
 [ext_resource type="PackedScene" uid="uid://chm1xb5sunb63" path="res://scenes/counters_ui.tscn" id="2_glms7"]
 [ext_resource type="TileSet" uid="uid://ktk5hjqhgr38" path="res://themes/tileset.tres" id="3_0rse5"]
+[ext_resource type="FontFile" uid="uid://dr12mxnc3lejr" path="res://assets/fonts/dungeonmode/font/dungeon-mode.ttf" id="3_30v7y"]
 [ext_resource type="PackedScene" uid="uid://d0gvbh7yu61tg" path="res://scenes/title.tscn" id="3_ternb"]
-[ext_resource type="PackedScene" uid="uid://cffpey8u54sob" path="res://scenes/option_menu.tscn" id="5_eaq8r"]
+[ext_resource type="PackedScene" uid="uid://bvl4xuub5eml" path="res://scenes/option_menu.tscn" id="5_eaq8r"]
 [ext_resource type="PackedScene" uid="uid://de1ktn3gt27h7" path="res://scenes/gameover.tscn" id="5_q8mjp"]
 [ext_resource type="PackedScene" path="res://scenes/controls.tscn" id="7_aonbx"]
 [ext_resource type="PackedScene" uid="uid://ce0w7tddcjrxu" path="res://scenes/world_test.tscn" id="7_q8mjp"]
@@ -524,11 +525,12 @@ physics_layer_1/collision_layer = 4
 physics_layer_1/collision_mask = 6
 sources/0 = SubResource("TileSetAtlasSource_aonbx")
 
-[node name="GameManager" type="Node2D" node_paths=PackedStringArray("counter_ui", "game_mode", "background_music")]
+[node name="GameManager" type="Node2D" node_paths=PackedStringArray("counter_ui", "game_mode", "background_music", "health_bar")]
 script = ExtResource("1_hwd4i")
 counter_ui = NodePath("CanvasLayer/CountersUI")
 game_mode = NodePath("GameMode")
 background_music = NodePath("BackgroundMusic")
+health_bar = NodePath("CanvasLayer/ProgressBar")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false
@@ -537,11 +539,21 @@ visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -326.0
-offset_top = 34.0
-offset_right = -324.0
-offset_bottom = 34.0
+offset_left = -416.0
+offset_top = 49.0
+offset_right = -414.0
+offset_bottom = 49.0
 grow_horizontal = 0
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer"]
+offset_left = 49.0
+offset_top = 27.0
+offset_right = 507.0
+offset_bottom = 77.0
+theme_override_fonts/font = ExtResource("3_30v7y")
+theme_override_font_sizes/font_size = 30
+max_value = 10.0
+value = 10.0
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 visible = false
@@ -651,5 +663,6 @@ stream = ExtResource("9_lcbjr")
 [connection signal="play_again_pressed" from="CanvasLayer3/GameOver" to="." method="_on_game_over_play_again_pressed"]
 [connection signal="back_button_pressed" from="CanvasLayer4/OptionMenu" to="." method="_on_option_menu_back_button_pressed"]
 [connection signal="enemy_died" from="GameMode" to="." method="_on_game_mode_enemy_died"]
+[connection signal="damaged" from="GameMode/PlayerCharacterBody2D" to="." method="_on_player_character_body_2d_damaged"]
 [connection signal="died" from="GameMode/PlayerCharacterBody2D" to="." method="_on_player_character_body_2d_died"]
 [connection signal="poweredup" from="GameMode/PlayerCharacterBody2D" to="GameMode" method="_on_player_character_body_2d_poweredup"]
