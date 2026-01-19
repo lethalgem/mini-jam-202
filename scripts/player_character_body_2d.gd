@@ -160,8 +160,6 @@ func update_animation():
 				animated_sprite_2D.play("idle", idle_speed)
 
 func start_attack():
-	#if state in [State.DEAD, State.DAMAGED]:
-		#return
 		
 	if state in [State.DEAD]:
 		return
