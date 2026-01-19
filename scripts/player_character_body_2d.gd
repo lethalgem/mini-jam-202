@@ -9,9 +9,10 @@ class_name PlayerCharacterBody2D extends CharacterBody2D
 @export var idle_speed: float = 1.0
 @export var death_speed: float = 1.0
 @export var speed := 300.0
-@export var health := 10
+@export var health := 1
 @export var attack_sounds: Array[SoundSample]
 @export var damaged_sounds: Array[SoundSample]
+@export var death_sounds: Array[SoundSample]
 
 signal died
 
@@ -36,6 +37,9 @@ func die():
 	attack_area_2D.monitoring = false
 	animated_sprite_2D.play("death_explode", death_speed)
 	await animated_sprite_2D.animation_finished
+	var death_sound_player = SoundPlayer2D.new()
+	add_sibling(death_sound_player)
+	death_sound_player.play_from_samples(death_sounds)
 	
 	var death_bubble_controller: DeathBubbleController = death_bubble_controller_scene.instantiate()
 	add_sibling(death_bubble_controller)
@@ -114,6 +118,7 @@ func take_damage():
 	attack_area_2D.visible = false
 
 	health -= 1
+	sound_player_2d.play_from_samples(damaged_sounds, true, 0.1)
 
 	if health <= 0:
 		state = State.DEAD
@@ -123,7 +128,6 @@ func take_damage():
 	state = State.DAMAGED
 	animated_sprite_2D.play("damage")
 	animated_sprite_2D.frame = 0
-	sound_player_2d.play_from_samples(damaged_sounds, true, 0.1)
 
 	await animated_sprite_2D.animation_finished
 	state = State.IDLE

@@ -1,7 +1,38 @@
-[gd_scene load_steps=48 format=3 uid="uid://bur4vws3j8icu"]
+[gd_scene load_steps=57 format=3 uid="uid://bur4vws3j8icu"]
 
 [ext_resource type="Script" uid="uid://ne2728ik3fe6" path="res://scripts/enemy_test.gd" id="1_gep6m"]
 [ext_resource type="Texture2D" uid="uid://bl1o1pnjcuj13" path="res://assets/enemy/Boss07_B.png" id="1_y7jog"]
+[ext_resource type="Script" uid="uid://b7fviwwanh0pa" path="res://scripts/sound_sample.gd" id="2_7wesy"]
+[ext_resource type="PackedScene" uid="uid://dv5jvexj7xk23" path="res://scenes/sound_player_2d.tscn" id="3_ainam"]
+[ext_resource type="AudioStream" uid="uid://hav1ljp1pn8j" path="res://assets/sfx/sword-blade-slicing-flesh-352708.mp3" id="3_j3aj1"]
+[ext_resource type="AudioStream" uid="uid://0k45gv37xqti" path="res://assets/sfx/hit-swing-sword-small-2-95566.mp3" id="4_7wesy"]
+[ext_resource type="AudioStream" uid="uid://c8hud3tkgr875" path="res://assets/sfx/splat-6831.mp3" id="5_j3aj1"]
+
+[sub_resource type="Resource" id="Resource_g07vx"]
+script = ExtResource("2_7wesy")
+stream = ExtResource("3_j3aj1")
+start_time = 0.13
+metadata/_custom_type_script = "uid://b7fviwwanh0pa"
+
+[sub_resource type="Resource" id="Resource_7vixx"]
+script = ExtResource("2_7wesy")
+stream = ExtResource("4_7wesy")
+start_time = 0.07
+metadata/_custom_type_script = "uid://b7fviwwanh0pa"
+
+[sub_resource type="Resource" id="Resource_wdycq"]
+script = ExtResource("2_7wesy")
+stream = ExtResource("5_j3aj1")
+start_time = 1.8199999999999998
+stop_time = 2.32
+metadata/_custom_type_script = "uid://b7fviwwanh0pa"
+
+[sub_resource type="Resource" id="Resource_joktd"]
+script = ExtResource("2_7wesy")
+stream = ExtResource("5_j3aj1")
+start_time = 4.29
+stop_time = 4.75
+metadata/_custom_type_script = "uid://b7fviwwanh0pa"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y7jog"]
 atlas = ExtResource("1_y7jog")
@@ -336,13 +367,16 @@ size = Vector2(29, 35)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ainam"]
 size = Vector2(53, 31)
 
-[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("Collision", "Sprite", "attack_area_2D", "attack_collision_shape_2D")]
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("Collision", "Sprite", "attack_area_2D", "attack_collision_shape_2D", "sound_player")]
 collision_layer = 2
 script = ExtResource("1_gep6m")
 Collision = NodePath("BodyCollisionShape2D")
 Sprite = NodePath("AnimatedSprite2D")
 attack_area_2D = NodePath("AttackingArea2D")
 attack_collision_shape_2D = NodePath("AttackingArea2D/AttackingCollisionShape2D")
+sound_player = NodePath("SoundPlayer2D")
+damaged_sounds = Array[ExtResource("2_7wesy")]([SubResource("Resource_g07vx"), SubResource("Resource_7vixx")])
+death_sounds = Array[ExtResource("2_7wesy")]([SubResource("Resource_wdycq"), SubResource("Resource_joktd")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_opp35")
@@ -358,6 +392,8 @@ position = Vector2(-1, 0)
 [node name="AttackingCollisionShape2D" type="CollisionShape2D" parent="AttackingArea2D"]
 position = Vector2(15.5, 0.5)
 shape = SubResource("RectangleShape2D_ainam")
+
+[node name="SoundPlayer2D" parent="." instance=ExtResource("3_ainam")]
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
