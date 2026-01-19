@@ -47,7 +47,6 @@ func _input(event):
 		
 		var difference = powerUpCoolDown - lastPowerUpTime
 		
-		#print('difference: ' + str(difference))
 		
 		if difference > 1000:
 			powerUp()
