@@ -4,6 +4,7 @@ class_name GameManager extends Node2D
 @export var game_mode: GameMode
 @export var background_music : Node
 @export var health_bar : ProgressBar
+@export var power_level_label : Label
 
 @onready var main_menu = $CanvasLayer2
 @onready var option_menu = $CanvasLayer4
@@ -99,3 +100,7 @@ func _on_game_mode_enemy_died() -> void:
 
 func _on_player_character_body_2d_damaged() -> void:
 	update_health_bar(true)
+
+
+func _on_player_character_body_2d_poweredup(power_level: Variant) -> void:
+	power_level_label.text = "PowerLevel: " + power_level
