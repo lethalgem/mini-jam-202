@@ -23,6 +23,7 @@ func _ready():
 	monitorable = true
 
 func _physics_process(delta):
+		
 	circle.radius += expand_speed * delta
 	
 	if circle.radius >= max_radius:

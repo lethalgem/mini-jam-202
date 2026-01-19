@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ne2728ik3fe6" path="res://scripts/enemy_test.gd" id="1_gep6m"]
 [ext_resource type="Texture2D" uid="uid://bl1o1pnjcuj13" path="res://assets/enemy/Boss07_B.png" id="1_y7jog"]
-[ext_resource type="Script" uid="uid://b7fviwwanh0pa" path="res://scripts/sound_sample.gd" id="2_7wesy"]
+[ext_resource type="Script" path="res://scripts/sound_sample.gd" id="2_7wesy"]
 [ext_resource type="PackedScene" uid="uid://dv5jvexj7xk23" path="res://scenes/sound_player_2d.tscn" id="3_ainam"]
 [ext_resource type="AudioStream" uid="uid://hav1ljp1pn8j" path="res://assets/sfx/sword-blade-slicing-flesh-352708.mp3" id="3_j3aj1"]
 [ext_resource type="AudioStream" uid="uid://0k45gv37xqti" path="res://assets/sfx/hit-swing-sword-small-2-95566.mp3" id="4_7wesy"]
@@ -23,7 +23,7 @@ metadata/_custom_type_script = "uid://b7fviwwanh0pa"
 [sub_resource type="Resource" id="Resource_wdycq"]
 script = ExtResource("2_7wesy")
 stream = ExtResource("5_j3aj1")
-start_time = 1.8199999999999998
+start_time = 1.82
 stop_time = 2.32
 metadata/_custom_type_script = "uid://b7fviwwanh0pa"
 
@@ -369,7 +369,7 @@ size = Vector2(53, 31)
 
 [node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("Collision", "Sprite", "attack_area_2D", "attack_collision_shape_2D", "sound_player")]
 collision_layer = 2
-collision_mask = 5
+collision_mask = 4
 script = ExtResource("1_gep6m")
 Collision = NodePath("BodyCollisionShape2D")
 Sprite = NodePath("AnimatedSprite2D")
