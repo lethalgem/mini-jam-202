@@ -101,8 +101,6 @@ func die():
 	died.emit()
 
 func _physics_process(delta):
-	#if state in [State.ATTACK, State.DAMAGED, State.DEAD]:
-		#return
 		
 	if state in [State.ATTACK, State.DEAD]:
 		return
