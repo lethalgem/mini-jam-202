@@ -88,7 +88,8 @@ func attack():
 
 func powerUp():
 	
-	attack_speed *= .95
+	attack_speed *= 1.1
+	attack_speed = min(attack_speed, 3)
 	
 	playerLevel += 1
 	if playerLevel < len(playerLevels):

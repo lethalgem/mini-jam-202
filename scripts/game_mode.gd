@@ -77,6 +77,9 @@ func floodSpawn():
 	
 	maxEnemyScale *= 1.15
 	
+	min_spawn *= .9
+	max_spawn *= .9
+	
 		
 func generateEnemy():
 	var enemy := enemy_scene.instantiate() as Enemy
