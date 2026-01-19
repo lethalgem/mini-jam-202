@@ -40,8 +40,6 @@ var powerUpCoolDown := Time.get_ticks_msec()
 
 func _input(event):
 	if event.is_action_pressed("radial_blast"):
-		#print()
-		#print()
 		powerUpCoolDown = Time.get_ticks_msec()
 		#print('last time: ' + str(lastPowerUpTime))
 		
