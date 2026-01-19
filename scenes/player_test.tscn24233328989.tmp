@@ -1,0 +1,97 @@
+[gd_scene load_steps=13 format=3 uid="uid://cwy5ad6mwh2mx"]
+
+[ext_resource type="PackedScene" uid="uid://b4o6qgy31lfq8" path="res://scenes/player_character_body_2d.tscn" id="1_a8v3n"]
+[ext_resource type="Texture2D" uid="uid://tb7paibar2se" path="res://assets/characters/Hero_26.png" id="2_fdpfy"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fdpfy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6p80c"]
+size = Vector2(1021, 65)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6p80c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ut53"]
+atlas = ExtResource("2_fdpfy")
+region = Rect2(0, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ue4q"]
+atlas = ExtResource("2_fdpfy")
+region = Rect2(32, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4fwf8"]
+atlas = ExtResource("2_fdpfy")
+region = Rect2(64, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dxymg"]
+atlas = ExtResource("2_fdpfy")
+region = Rect2(96, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3741"]
+atlas = ExtResource("2_fdpfy")
+region = Rect2(128, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ged13"]
+atlas = ExtResource("2_fdpfy")
+region = Rect2(160, 160, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ad58j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ut53")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ue4q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4fwf8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dxymg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3741")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ged13")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="PlayerTest" type="Node2D"]
+
+[node name="Ground" type="StaticBody2D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_fdpfy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+position = Vector2(524.5, 593.5)
+shape = SubResource("RectangleShape2D_6p80c")
+
+[node name="ColorRect" type="ColorRect" parent="Ground"]
+offset_left = 13.0
+offset_top = 561.0
+offset_right = 1035.0
+offset_bottom = 626.0
+
+[node name="PlayerCharacterBody2D" parent="." instance=ExtResource("1_a8v3n")]
+position = Vector2(369, 444)
+scale = Vector2(3, 3)
+idle_speed = 1.0
+death_speed = 1.0
+speed = 300.0
+health = 10
+
+[node name="DummyCharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(508, 446)
+scale = Vector2(3, 3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DummyCharacterBody2D"]
+position = Vector2(0, 7)
+shape = SubResource("CircleShape2D_6p80c")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="DummyCharacterBody2D"]
+scale = Vector2(-1, 1)
+sprite_frames = SubResource("SpriteFrames_ad58j")
+frame_progress = 0.6328955
